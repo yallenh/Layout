@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, HRStickyHeaderFlowLayoutType) {
+    HRStickyHeaderFlowLayoutTypeShowOnBrowsMore,
     HRStickyHeaderFlowLayoutTypeReplace,
     HRStickyHeaderFlowLayoutTypeStack
 };

@@ -26,8 +26,8 @@
     HRStickyHeaderFlowLayout *layout = [[HRStickyHeaderFlowLayout alloc] init];
     layout.minimumLineSpacing = 0;
     layout.minimumInteritemSpacing = 0;
-    layout.type = HRStickyHeaderFlowLayoutTypeStack;
-    layout.stickySections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 5)];
+    layout.type = HRStickyHeaderFlowLayoutTypeShowOnBrowsMore;
+    layout.stickySections = [NSIndexSet indexSetWithIndex:0];
 
     _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
