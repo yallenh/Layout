@@ -7,6 +7,7 @@
 //
 
 #import "GTScrollNavigationBar.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define kNearZero 0.000001f
 
@@ -14,6 +15,8 @@
 
 @property (strong, nonatomic) UIPanGestureRecognizer* panGesture;
 @property (assign, nonatomic) CGFloat lastContentOffsetY;
+
+@property (nonatomic, strong) CAGradientLayer *gradientLayer;
 
 @end
 
@@ -36,8 +39,18 @@
     return self;
 }
 
+static CGFloat const kDefaultOpacity = 0.5f;
+
+
+
 - (void)setup
 {
+    UIColor *firstColor = [UIColor colorWithRed:255.0f/255.0f green:42.0f/255.0f blue:150.0f/255.0f alpha:1.0f];
+    UIColor *secondColor = [UIColor colorWithRed:255.0f/255.0f green:90.0f/255.0f blue:58.0f/255.0f alpha:1.0f];
+    NSArray *colors = [NSArray arrayWithObjects:(id)firstColor.CGColor, (id)secondColor.CGColor, nil];
+    [[GTScrollNavigationBar appearance] setBarTintGradientColors:colors];
+    [self setTranslucent:NO];
+
     self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                               action:@selector(handlePan:)];
     self.panGesture.delegate = self;
@@ -225,6 +238,53 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     
     if (animated) {
         [UIView commitAnimations];
+    }
+}
+
+#pragma mark - Gradient Layer
+
+- (void)setBarTintGradientColors:(NSArray *)barTintGradientColors
+{
+    // create the gradient layer
+    if (!self.gradientLayer) {
+        self.gradientLayer = [CAGradientLayer layer];
+        self.gradientLayer.opacity = self.translucent ? kDefaultOpacity : 1.0f;
+    }
+
+    NSMutableArray *colors = nil;
+    if (barTintGradientColors) {
+        colors = [NSMutableArray arrayWithCapacity:[barTintGradientColors count]];
+
+        // determine elements in the array are color and add them to the colors array
+        [barTintGradientColors enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isKindOfClass:[UIColor class]]) {
+                // UIColor class
+                [colors addObject:(id)[obj CGColor]];
+            }
+            else if (CFGetTypeID((__bridge void *)obj) == CGColorGetTypeID()) {
+                // CGColorRef
+                [colors addObject:obj];
+            }
+            else {
+                // obj is not a supported type
+                @throw [NSException exceptionWithName:@"BarTintGraidentColorsError" reason:@"object in barTintGradientColors array is not a UIColor or CGColorRef" userInfo:nil];
+            }
+        }];
+        self.barTintColor = [UIColor clearColor];
+    }
+    // set the graident colours to the laery
+    self.gradientLayer.colors = colors;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    // allow all layout subviews call to adjust the frame
+    if (self.gradientLayer) {
+        CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+        self.gradientLayer.frame = CGRectMake(0, 0 - statusBarHeight, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) + statusBarHeight);
+        // make sure the graident layer is at position 1
+        [self.layer insertSublayer:self.gradientLayer atIndex:1];
     }
 }
 

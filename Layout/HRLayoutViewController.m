@@ -85,7 +85,7 @@
     if (kind == UICollectionElementKindSectionHeader) {
         cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:NSStringFromClass([UICollectionReusableView class]) forIndexPath:indexPath];
         [self setText:[NSString stringWithFormat:@"section %tu", indexPath.section] onView:cell];
-        cell.backgroundColor = [UIColor purpleColor];
+        cell.backgroundColor = [UIColor lightGrayColor];
     } else {
         cell = [[UICollectionReusableView alloc] init];
     }
@@ -93,6 +93,16 @@
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return CGSizeMake(CGRectGetWidth(self.view.frame), 100.f);

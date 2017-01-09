@@ -5,3 +5,5 @@ http://stackoverflow.com/questions/19819165/imitate-ios-7-facebook-hide-show-exp
 https://github.com/luugiathuy/GTScrollNavigationBar
 
 https://www.natashatherobot.com/navigation-bar-interactions-ios8/
+
+https://github.com/chroman/CRGradientNavigationBar
