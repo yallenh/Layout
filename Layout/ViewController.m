@@ -8,11 +8,7 @@
 
 #import "ViewController.h"
 #import "HRLayoutViewController.h"
-#import "GTScrollNavigationBar.h"
-
-@interface ViewController ()
-
-@end
+#import "UINavigationController+Factory.h"
 
 @implementation ViewController
 
@@ -21,11 +17,9 @@
     [super viewDidLoad];
 
     HRLayoutViewController *viewController = [[HRLayoutViewController alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
-    UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class] toolbarClass:nil];
-    [navController setup];
-    // UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[UINavigationBar class] toolbarClass:nil];
-    [navController setViewControllers:@[viewController] animated:NO];
 
+    UINavigationController *navController = [UINavigationController homeTabNavigationController];
+    [navController setViewControllers:@[viewController] animated:NO];
     [self addChildViewController:navController];
     [self.view addSubview:navController.view];
     [viewController didMoveToParentViewController:self];

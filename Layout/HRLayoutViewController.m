@@ -8,7 +8,7 @@
 
 #import "HRLayoutViewController.h"
 #import "HRStickyHeaderFlowLayout.h"
-#import "GTScrollNavigationBar.h"
+#import "HRGradientScrollNavBar.h"
 
 
 @interface HRLayoutViewController ()
@@ -35,12 +35,8 @@
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([UICollectionReusableView class])];
 
-    // self.navigationItem.title = @"";
-    UITextField *textField = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, self.navigationController.navigationBar.frame.size.width, 21.0)];
-    textField.backgroundColor = [UIColor blackColor];
-    self.navigationItem.titleView = textField;
-    [textField becomeFirstResponder];
-    self.navigationController.scrollNavigationBar.scrollView = self.collectionView;
+    self.navigationController.gradientScrollNavBar.scrollView = self.collectionView;
+    self.navigationItem.titleView = self.navigationController.navigationItem.titleView;
     self.navigationItem.leftBarButtonItem = self.navigationController.navigationItem.leftBarButtonItem;
     self.navigationItem.rightBarButtonItem = self.navigationController.navigationItem.rightBarButtonItem;
 }
@@ -121,7 +117,7 @@
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
 {
-    [self.navigationController.scrollNavigationBar resetToDefaultPositionWithAnimation:NO];
+    [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:NO];
 }
 
 @end
