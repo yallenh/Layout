@@ -10,11 +10,6 @@
 #import "HRStickyHeaderFlowLayout.h"
 #import "HRGradientScrollNavBar.h"
 
-
-@interface HRLayoutViewController ()
-
-@end
-
 @implementation HRLayoutViewController
 
 - (void)viewDidLoad

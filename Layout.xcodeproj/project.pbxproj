@@ -19,6 +19,7 @@
 		913BB1C21E1E430800C3D4B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 913BB1C11E1E430800C3D4B3 /* Assets.xcassets */; };
 		913BB1C51E1E430800C3D4B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 913BB1C31E1E430800C3D4B3 /* LaunchScreen.storyboard */; };
 		913BB1CF1E1E445300C3D4B3 /* HRStickyHeaderFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 913BB1CE1E1E445300C3D4B3 /* HRStickyHeaderFlowLayout.m */; };
+		91D6C8251E237A3500FEE048 /* UIButton+HRUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D6C8241E237A3500FEE048 /* UIButton+HRUtilities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,8 @@
 		913BB1C61E1E430800C3D4B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		913BB1CD1E1E445300C3D4B3 /* HRStickyHeaderFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRStickyHeaderFlowLayout.h; path = StickyHeader/HRStickyHeaderFlowLayout.h; sourceTree = "<group>"; };
 		913BB1CE1E1E445300C3D4B3 /* HRStickyHeaderFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRStickyHeaderFlowLayout.m; path = StickyHeader/HRStickyHeaderFlowLayout.m; sourceTree = "<group>"; };
+		91D6C8231E237A3500FEE048 /* UIButton+HRUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+HRUtilities.h"; path = "Utils/UIButton+HRUtilities.h"; sourceTree = "<group>"; };
+		91D6C8241E237A3500FEE048 /* UIButton+HRUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+HRUtilities.m"; path = "Utils/UIButton+HRUtilities.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +76,8 @@
 				91257E8E1E235B6A002800F1 /* UIColor+Utils.m */,
 				91257E991E237072002800F1 /* HRGraphicsFactory.h */,
 				91257E9A1E237072002800F1 /* HRGraphicsFactory.m */,
+				91D6C8231E237A3500FEE048 /* UIButton+HRUtilities.h */,
+				91D6C8241E237A3500FEE048 /* UIButton+HRUtilities.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -210,6 +215,7 @@
 				91257E9B1E237072002800F1 /* HRGraphicsFactory.m in Sources */,
 				913BB1CF1E1E445300C3D4B3 /* HRStickyHeaderFlowLayout.m in Sources */,
 				913BB1BA1E1E430800C3D4B3 /* AppDelegate.m in Sources */,
+				91D6C8251E237A3500FEE048 /* UIButton+HRUtilities.m in Sources */,
 				91257E8F1E235B6A002800F1 /* UIColor+Utils.m in Sources */,
 				9100CABE1E1FAB6D00B883E4 /* HRLayoutViewController.m in Sources */,
 				913BB1B71E1E430800C3D4B3 /* main.m in Sources */,
