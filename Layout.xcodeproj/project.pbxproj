@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9100CABB1E1FA63400B883E4 /* GTScrollNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100CABA1E1FA63400B883E4 /* GTScrollNavigationBar.m */; };
+		9100CABE1E1FAB6D00B883E4 /* HRLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9100CABD1E1FAB6D00B883E4 /* HRLayoutViewController.m */; };
 		913BB1B71E1E430800C3D4B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 913BB1B61E1E430800C3D4B3 /* main.m */; };
 		913BB1BA1E1E430800C3D4B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 913BB1B91E1E430800C3D4B3 /* AppDelegate.m */; };
 		913BB1BD1E1E430800C3D4B3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913BB1BC1E1E430800C3D4B3 /* ViewController.m */; };
@@ -17,6 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9100CAB91E1FA63400B883E4 /* GTScrollNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTScrollNavigationBar.h; path = Navigation/GTScrollNavigationBar.h; sourceTree = "<group>"; };
+		9100CABA1E1FA63400B883E4 /* GTScrollNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTScrollNavigationBar.m; path = Navigation/GTScrollNavigationBar.m; sourceTree = "<group>"; };
+		9100CABC1E1FAB6D00B883E4 /* HRLayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRLayoutViewController.h; sourceTree = "<group>"; };
+		9100CABD1E1FAB6D00B883E4 /* HRLayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRLayoutViewController.m; sourceTree = "<group>"; };
 		913BB1B21E1E430800C3D4B3 /* Layout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Layout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		913BB1B61E1E430800C3D4B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		913BB1B81E1E430800C3D4B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -42,6 +48,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9100CAB81E1FA60700B883E4 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				9100CAB91E1FA63400B883E4 /* GTScrollNavigationBar.h */,
+				9100CABA1E1FA63400B883E4 /* GTScrollNavigationBar.m */,
+			);
+			name = Navigation;
+			sourceTree = "<group>";
+		};
 		913BB1A91E1E430800C3D4B3 = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +80,9 @@
 				913BB1B91E1E430800C3D4B3 /* AppDelegate.m */,
 				913BB1BB1E1E430800C3D4B3 /* ViewController.h */,
 				913BB1BC1E1E430800C3D4B3 /* ViewController.m */,
+				9100CABC1E1FAB6D00B883E4 /* HRLayoutViewController.h */,
+				9100CABD1E1FAB6D00B883E4 /* HRLayoutViewController.m */,
+				9100CAB81E1FA60700B883E4 /* Navigation */,
 				913BB1CC1E1E437700C3D4B3 /* StickyHeader */,
 				913BB1BE1E1E430800C3D4B3 /* Main.storyboard */,
 				913BB1C11E1E430800C3D4B3 /* Assets.xcassets */,
@@ -165,7 +183,9 @@
 			files = (
 				913BB1BD1E1E430800C3D4B3 /* ViewController.m in Sources */,
 				913BB1CF1E1E445300C3D4B3 /* HRStickyHeaderFlowLayout.m in Sources */,
+				9100CABB1E1FA63400B883E4 /* GTScrollNavigationBar.m in Sources */,
 				913BB1BA1E1E430800C3D4B3 /* AppDelegate.m in Sources */,
+				9100CABE1E1FAB6D00B883E4 /* HRLayoutViewController.m in Sources */,
 				913BB1B71E1E430800C3D4B3 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
