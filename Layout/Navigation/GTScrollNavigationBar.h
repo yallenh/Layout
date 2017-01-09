@@ -27,4 +27,6 @@ typedef NS_ENUM(NSInteger, GTScrollNavigationBarState) {
 
 @property(strong, nonatomic, readonly) GTScrollNavigationBar *scrollNavigationBar;
 
+- (void)setup;
+
 @end

@@ -22,6 +22,7 @@
 
     HRLayoutViewController *viewController = [[HRLayoutViewController alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
     UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class] toolbarClass:nil];
+    [navController setup];
     // UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[UINavigationBar class] toolbarClass:nil];
     [navController setViewControllers:@[viewController] animated:NO];
 

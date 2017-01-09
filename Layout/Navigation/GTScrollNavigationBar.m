@@ -48,7 +48,7 @@ static CGFloat const kDefaultOpacity = 0.5f;
     UIColor *firstColor = [UIColor colorWithRed:255.0f/255.0f green:42.0f/255.0f blue:150.0f/255.0f alpha:1.0f];
     UIColor *secondColor = [UIColor colorWithRed:255.0f/255.0f green:90.0f/255.0f blue:58.0f/255.0f alpha:1.0f];
     NSArray *colors = [NSArray arrayWithObjects:(id)firstColor.CGColor, (id)secondColor.CGColor, nil];
-    [[GTScrollNavigationBar appearance] setBarTintGradientColors:colors];
+     [[GTScrollNavigationBar appearance] setBarTintGradientColors:colors];
     [self setTranslucent:NO];
 
     self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
@@ -297,6 +297,22 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 - (GTScrollNavigationBar*)scrollNavigationBar
 {
     return (GTScrollNavigationBar*)self.navigationBar;
+}
+
+- (void)setup
+{
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(didTapSidebar)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(didTapMsgBox)];
+}
+
+- (void)didTapSidebar
+{
+    NSLog(@"didTapSidebar");
+}
+
+- (void)didTapMsgBox
+{
+    NSLog(@"didTapMsgBox");
 }
 
 @end
