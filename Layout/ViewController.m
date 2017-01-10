@@ -8,17 +8,24 @@
 
 #import "ViewController.h"
 #import "HRLayoutViewController.h"
+#import "HRSwiperViewController.h"
 #import "UINavigationController+Factory.h"
+
+// #define DEVELOP_HOME
 
 @implementation ViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+#ifdef DEVELOP_HOME
     HRLayoutViewController *viewController = [[HRLayoutViewController alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
-
-    UINavigationController *navController = [UINavigationController homeTabNavigationController];
+#else
+    UICollectionViewFlowLayout *swiperLayout = [[UICollectionViewFlowLayout alloc] init];
+    swiperLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    HRSwiperViewController *viewController = [[HRSwiperViewController alloc] initWithCollectionViewLayout:swiperLayout];
+#endif
+    UINavigationController *navController = [UINavigationController newsTabNavigationController];
     [navController setViewControllers:@[viewController] animated:NO];
     [self addChildViewController:navController];
     [self.view addSubview:navController.view];

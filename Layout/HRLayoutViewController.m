@@ -31,9 +31,6 @@
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([UICollectionReusableView class])];
 
     self.navigationController.gradientScrollNavBar.scrollView = self.collectionView;
-    self.navigationItem.titleView = self.navigationController.navigationItem.titleView;
-    self.navigationItem.leftBarButtonItem = self.navigationController.navigationItem.leftBarButtonItem;
-    self.navigationItem.rightBarButtonItem = self.navigationController.navigationItem.rightBarButtonItem;
 }
 
 - (void)setText:(NSString *)text onView:(UIView *)view

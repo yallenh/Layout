@@ -12,5 +12,6 @@
 @interface UINavigationController (Factory)
 
 + (UINavigationController *)homeTabNavigationController;
++ (UINavigationController *)newsTabNavigationController;
 
 @end

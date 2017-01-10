@@ -64,14 +64,30 @@ static CGFloat const kInCallStatusBarHeightIncreasing = 20.f;
 #pragma mark - Properties
 - (void)setScrollView:(UIScrollView*)scrollView
 {
-    [self resetToDefaultPositionWithAnimation:NO];
+    if (!scrollView) {
+        return;
+    }
     _scrollView = scrollView;
     if (self.panGesture.view) {
         [self.panGesture.view removeGestureRecognizer:self.panGesture];
     }
-    if (scrollView) {
-        [scrollView addGestureRecognizer:self.panGesture];
+    [scrollView addGestureRecognizer:self.panGesture];
+
+    // try auto setup navigation controller for the scroll view
+    UIView *parentView = scrollView.superview;
+    while (parentView) {
+        id responder = [parentView nextResponder];
+        if ([responder isKindOfClass:[UIViewController class]]) {
+            UIViewController *parentViewController = (UIViewController *)responder;
+            UINavigationController *nav = (UINavigationController *)[self.superview nextResponder];
+            parentViewController.navigationItem.titleView = nav.navigationItem.titleView;
+            parentViewController.navigationItem.leftBarButtonItem = nav.navigationItem.leftBarButtonItem;
+            parentViewController.navigationItem.rightBarButtonItem = nav.navigationItem.rightBarButtonItem;
+            break;
+        }
+        parentView = parentView.superview;
     }
+    [self resetToDefaultPositionWithAnimation:NO];
 }
 
 #pragma mark - Public methods

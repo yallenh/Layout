@@ -24,23 +24,15 @@ static CGFloat const kHeaderSearchFontSize = 18.f;
 
 @implementation UINavigationController (Factory)
 
+#pragma mark -- Public methods
+
 + (UINavigationController *)homeTabNavigationController
 {
+    [HRGradientScrollNavBar appearance].gradientLayer = [UINavigationController horizontalGradientLayer];
     UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[HRGradientScrollNavBar class] toolbarClass:nil];
-
-    // background gradient
     navController.navigationBar.translucent = NO;
-    [[HRGradientScrollNavBar appearance] setGradientLayer:[[HRGraphicsFactory sharedFactory] generateGradientLayerWithColors:@[[UIColor colorWithHex:kHeaderGradientLightPurple], [UIColor colorWithHex:kHeaderGradientDarkPurple]] gradientType:kHRGraphicsFactoryGradientTypeHorizontal points:nil size:CGSizeZero]];
-
-    // sidebar hamburger
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:kHeaderSideBarIcon] style:UIBarButtonItemStylePlain target:self action:@selector(didWantOpenSideBar)];
-    leftButton.tintColor = [UIColor whiteColor];
-    navController.navigationItem.leftBarButtonItem = leftButton;
-
-    // message box
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(didWantOpenMsgBox)];
-    rightButton.tintColor = [UIColor clearColor];
-    navController.navigationItem.rightBarButtonItem = rightButton;
+    navController.navigationItem.leftBarButtonItem = [UINavigationController hamburgerBarButtonItem];
+    navController.navigationItem.rightBarButtonItem = [UINavigationController msgBarButtonItem];
 
     // search input
 #ifdef HRHomeHeaderSeachOpenBrowser
@@ -73,6 +65,46 @@ static CGFloat const kHeaderSearchFontSize = 18.f;
 
     return navController;
 }
+
++ (UINavigationController *)newsTabNavigationController
+{
+    [HRGradientScrollNavBar appearance].gradientLayer = [UINavigationController horizontalGradientLayer];
+    UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[HRGradientScrollNavBar class] toolbarClass:nil];
+    navController.navigationBar.translucent = NO;
+    navController.navigationItem.leftBarButtonItem = [UINavigationController hamburgerBarButtonItem];
+    navController.navigationItem.rightBarButtonItem = [UINavigationController searchBarButtonItem];
+    return navController;
+}
+
+#pragma mark -- Private methods
+
++ (CAGradientLayer *)horizontalGradientLayer
+{
+    return [[HRGraphicsFactory sharedFactory] generateGradientLayerWithColors:@[[UIColor colorWithHex:kHeaderGradientLightPurple], [UIColor colorWithHex:kHeaderGradientDarkPurple]] gradientType:kHRGraphicsFactoryGradientTypeHorizontal points:nil size:CGSizeZero];
+}
+
++ (UIBarButtonItem *)hamburgerBarButtonItem
+{
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:kHeaderSideBarIcon] style:UIBarButtonItemStylePlain target:self action:@selector(didWantOpenSideBar)];
+    button.tintColor = [UIColor whiteColor];
+    return button;
+}
+
++ (UIBarButtonItem *)msgBarButtonItem
+{
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(didWantOpenMsgBox)];
+    button.tintColor = [UIColor clearColor];
+    return button;
+}
+
++ (UIBarButtonItem *)searchBarButtonItem
+{
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(didWantOpenBrowser)];
+    button.tintColor = [UIColor whiteColor];
+    return button;
+}
+
+#pragma mark -- Handlers
 
 + (void)didWantOpenSideBar
 {
