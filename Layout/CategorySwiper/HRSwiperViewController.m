@@ -8,6 +8,7 @@
 
 #import "HRSwiperViewController.h"
 #import "HRGradientScrollNavBar.h"
+#import "HRVerticalViewController.h"
 
 @interface HRSwiperViewController ()
 

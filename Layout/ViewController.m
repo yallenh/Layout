@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "HRLayoutViewController.h"
+#import "HRVerticalViewController.h"
 #import "HRSwiperViewController.h"
 #import "UINavigationController+Factory.h"
 
@@ -19,7 +19,7 @@
 {
     [super viewDidLoad];
 #ifdef DEVELOP_HOME
-    HRLayoutViewController *viewController = [[HRLayoutViewController alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+    HRLayoutViewController *viewController = [[HRVerticalViewController alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
 #else
     UICollectionViewFlowLayout *swiperLayout = [[UICollectionViewFlowLayout alloc] init];
     swiperLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;

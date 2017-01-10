@@ -1,16 +1,16 @@
 //
-//  HRLayoutViewController.m
+//  HRVerticalViewController.m
 //  Layout
 //
 //  Created by Allen on 1/6/17.
 //  Copyright © 2017 Yahoo. All rights reserved.
 //
 
-#import "HRLayoutViewController.h"
+#import "HRVerticalViewController.h"
 #import "HRStickyHeaderFlowLayout.h"
 #import "HRGradientScrollNavBar.h"
 
-@implementation HRLayoutViewController
+@implementation HRVerticalViewController
 
 - (void)viewDidLoad
 {

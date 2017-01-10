@@ -1,5 +1,5 @@
 //
-//  HRLayoutViewController.h
+//  HRVerticalViewController.h
 //  Layout
 //
 //  Created by Allen on 1/6/17.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HRLayoutViewController : UICollectionViewController
+@interface HRVerticalViewController : UICollectionViewController
 
 @end
