@@ -210,6 +210,17 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         parentViewFrame.origin.y += offsetY;
         parentViewFrame.size.height -= offsetY;
         self.scrollView.superview.frame = parentViewFrame;
+
+        // self.scrollView: UICollectionView
+        // self.scrollView.superview: UICollectionViewControllerWrapperView
+        // self.scrollView.superview.superview: UIView
+        // self.scrollView.superview.superview.superview: UICollectionViewCell
+        // self.scrollView.superview.superview.superview.superview: UICollectionView
+        // self.scrollView.superview.superview.superview.superview.superview.: UICollectionViewControllerWrapperView
+//        parentViewFrame = self.scrollView.superview.superview.superview.superview.superview.frame;
+//        parentViewFrame.origin.y += offsetY;
+//        parentViewFrame.size.height -= offsetY;
+//        self.scrollView.superview.superview.superview.superview.superview.frame = parentViewFrame;
     }
     if (animated) {
         [UIView commitAnimations];

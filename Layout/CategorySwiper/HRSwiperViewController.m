@@ -23,28 +23,26 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
+    self.view.clipsToBounds = NO;
+    self.collectionView.clipsToBounds = NO;
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([UICollectionReusableView class])];
     self.collectionView.pagingEnabled = YES;
     // Do any additional setup after loading the view.
 
     self.navigationController.gradientScrollNavBar.scrollView = self.collectionView;
-    self.navigationItem.titleView = self.navigationController.navigationItem.titleView;
-    self.navigationItem.leftBarButtonItem = self.navigationController.navigationItem.leftBarButtonItem;
-    self.navigationItem.rightBarButtonItem = self.navigationController.navigationItem.rightBarButtonItem;
 }
 
-- (void)setText:(NSString *)text onView:(UIView *)view
+#pragma mark -- Private methods
+
+- (UICollectionView *)collectionViewFromCell:(UICollectionViewCell *)cell
 {
-    UILabel *label;
-    if (!view.subviews.count) {
-        label = [[UILabel alloc] initWithFrame:view.bounds];
-        [view addSubview:label];
-    } else {
-        label = [view.subviews firstObject];
-    }
-    label.text = text;
-    label.textAlignment = NSTextAlignmentCenter;
+    return (UICollectionView *)[[[[[cell.subviews firstObject] subviews] firstObject] subviews] firstObject];
+}
+
+- (void)resetGradientScrollNavBar
+{
+    [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:NO];
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -60,12 +58,25 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class]) forIndexPath:indexPath];
-    [self setText:[NSString stringWithFormat:@"%tu - %tu", indexPath.section, indexPath.row] onView:[cell.subviews firstObject]];
-    cell.backgroundColor = [@[[UIColor redColor], [UIColor orangeColor], [UIColor yellowColor], [UIColor greenColor], [UIColor blueColor]] objectAtIndex:indexPath.row % 5];
+    // add vertical collection view once on every reused cell
+    UIView *firstView = [cell.subviews firstObject];
+    if (!firstView.subviews.count) {
+        HRVerticalViewController *verticalVC = [[HRVerticalViewController alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+        [self addChildViewController:verticalVC];
+        [firstView addSubview:verticalVC.view];
+        [verticalVC didMoveToParentViewController:self];
+    }
+    // scroll vertical collection view to top
+    [((UICollectionView *)[[[firstView.subviews firstObject] subviews] firstObject]) scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
     return cell;
 }
 
 #pragma mark <UICollectionViewDelegate>
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"will display %tu, cell = \n%@", indexPath.row, cell);
+}
+
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
     return 0;
@@ -83,7 +94,30 @@
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
 {
-    [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:NO];
+    [self resetGradientScrollNavBar];
+}
+
+#pragma mark <UIScrollViewDelegate>
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (![scrollView isKindOfClass:[UICollectionView class]]) {
+        return;
+    }
+    UICollectionView *collectionView = (UICollectionView *)scrollView;
+    CGFloat width = CGRectGetWidth(collectionView.frame);
+    NSUInteger currentPage = ((collectionView.contentOffset.x - width / 2.f) / width) + 1;
+
+    __weak typeof (self) weakSelf = self;
+    [[collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell *cell, NSUInteger idx, BOOL *stop) {
+        typeof (weakSelf) strongSelf = weakSelf;
+        if (strongSelf && [[collectionView indexPathForCell:cell] row] == currentPage) {
+            UICollectionView *verticalCollectionView = [strongSelf collectionViewFromCell:cell];
+            strongSelf.navigationController.gradientScrollNavBar.scrollView = verticalCollectionView;
+            [strongSelf resetGradientScrollNavBar];
+            *stop = YES;
+        }
+    }];
 }
 
 /*

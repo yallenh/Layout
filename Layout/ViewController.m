@@ -18,8 +18,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.view.backgroundColor = [UIColor brownColor];
+
 #ifdef DEVELOP_HOME
-    HRLayoutViewController *viewController = [[HRVerticalViewController alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+    HRVerticalViewController *viewController = [[HRVerticalViewController alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
 #else
     UICollectionViewFlowLayout *swiperLayout = [[UICollectionViewFlowLayout alloc] init];
     swiperLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;

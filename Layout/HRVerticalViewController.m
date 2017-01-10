@@ -30,7 +30,7 @@
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([UICollectionReusableView class])];
 
-    self.navigationController.gradientScrollNavBar.scrollView = self.collectionView;
+    // self.navigationController.gradientScrollNavBar.scrollView = self.collectionView;
 }
 
 - (void)setText:(NSString *)text onView:(UIView *)view
@@ -109,7 +109,7 @@
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
 {
-    [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:NO];
+    // [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:NO];
 }
 
 @end
