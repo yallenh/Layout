@@ -40,11 +40,6 @@
     return (UICollectionView *)[[[[[cell.subviews firstObject] subviews] firstObject] subviews] firstObject];
 }
 
-- (void)resetGradientScrollNavBar
-{
-    [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:NO];
-}
-
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -74,7 +69,7 @@
 #pragma mark <UICollectionViewDelegate>
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"will display %tu, cell = \n%@", indexPath.row, cell);
+    // NSLog(@"will display %tu, cell = \n%@", indexPath.row, cell);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
@@ -94,7 +89,7 @@
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
 {
-    [self resetGradientScrollNavBar];
+    [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:NO];
 }
 
 #pragma mark <UIScrollViewDelegate>
@@ -114,7 +109,7 @@
         if (strongSelf && [[collectionView indexPathForCell:cell] row] == currentPage) {
             UICollectionView *verticalCollectionView = [strongSelf collectionViewFromCell:cell];
             strongSelf.navigationController.gradientScrollNavBar.scrollView = verticalCollectionView;
-            [strongSelf resetGradientScrollNavBar];
+            verticalCollectionView.superview.frame = cell.bounds;
             *stop = YES;
         }
     }];
