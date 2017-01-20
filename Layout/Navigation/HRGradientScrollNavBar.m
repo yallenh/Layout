@@ -87,7 +87,7 @@ static CGFloat const kInCallStatusBarHeightIncreasing = 20.f;
     self.frame = frame;
 
     // reset scroll view
-    if (self.scrollView && !self.lock) {
+    if (self.scrollView && self.shuldScrollViewUpdate) {
         CGRect parentViewFrame = self.scrollView.superview.frame;
         CGFloat offsetY = parentViewFrame.origin.y;
         parentViewFrame.origin.y -= offsetY;
@@ -214,7 +214,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     self.frame = frame;
     self.alpha = alpha;
 
-    if (self.scrollView && !self.lock) {
+    if (self.scrollView && self.shuldScrollViewUpdate) {
         CGRect parentViewFrame = self.scrollView.superview.frame;
         parentViewFrame.origin.y += offsetY;
         parentViewFrame.size.height -= offsetY;

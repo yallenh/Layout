@@ -11,10 +11,18 @@
 #import "HRVerticalViewController.h"
 
 @interface HRSwiperViewController ()
-
+@property (nonatomic) NSUInteger currentPage;
 @end
 
 @implementation HRSwiperViewController
+
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout
+{
+    if (self = [super initWithCollectionViewLayout:layout]) {
+        _currentPage = NSUIntegerMax;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,7 +42,14 @@
     self.navigationItem.titleView = nav.navigationItem.titleView;
     self.navigationItem.leftBarButtonItem = nav.navigationItem.leftBarButtonItem;
     self.navigationItem.rightBarButtonItem = nav.navigationItem.rightBarButtonItem;
-    self.navigationController.gradientScrollNavBar.scrollView = self.collectionView;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (self.currentPage == NSUIntegerMax) {
+        self.currentPage = 0;
+    }
 }
 
 #pragma mark -- Private methods
@@ -42,6 +57,29 @@
 - (UICollectionView *)collectionViewFromCell:(UICollectionViewCell *)cell
 {
     return (UICollectionView *)[[[[[cell.subviews firstObject] subviews] firstObject] subviews] firstObject];
+}
+
+- (void)setCurrentPage:(NSUInteger)currentPage
+{
+    self.navigationController.gradientScrollNavBar.shuldScrollViewUpdate = YES;
+    if (_currentPage == currentPage) {
+        [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:YES];
+    }
+    else {
+        __weak typeof (self) weakSelf = self;
+        [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell *cell, NSUInteger idx, BOOL *stop) {
+            typeof (weakSelf) strongSelf = weakSelf;
+            if (strongSelf && [[strongSelf.collectionView indexPathForCell:cell] row] == currentPage) {
+                UICollectionView *verticalCollectionView = [strongSelf collectionViewFromCell:cell];
+                // ASSERT
+                // strongSelf.navigationController.gradientScrollNavBar.scrollView != verticalCollectionView
+                strongSelf.navigationController.gradientScrollNavBar.scrollView = verticalCollectionView;
+                verticalCollectionView.superview.frame = cell.bounds;
+                *stop = YES;
+            }
+        }];
+    }
+    _currentPage = currentPage;
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -100,40 +138,20 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if (![scrollView isKindOfClass:[UICollectionView class]]) {
-        return;
+    // reset nav bar scroll view
+    if ([scrollView isKindOfClass:[UICollectionView class]]) {
+        CGFloat width = CGRectGetWidth(scrollView.frame);
+        self.currentPage = ((scrollView.contentOffset.x - width / 2.f) / width) + 1;
     }
-    UICollectionView *collectionView = (UICollectionView *)scrollView;
-    CGFloat width = CGRectGetWidth(collectionView.frame);
-    NSUInteger currentPage = ((collectionView.contentOffset.x - width / 2.f) / width) + 1;
-
-    __weak typeof (self) weakSelf = self;
-    [[collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell *cell, NSUInteger idx, BOOL *stop) {
-        typeof (weakSelf) strongSelf = weakSelf;
-        if (strongSelf && [[collectionView indexPathForCell:cell] row] == currentPage) {
-            UICollectionView *verticalCollectionView = [strongSelf collectionViewFromCell:cell];
-
-            // immutable check
-            strongSelf.navigationController.gradientScrollNavBar.lock = NO;
-            if (strongSelf.navigationController.gradientScrollNavBar.scrollView != verticalCollectionView)
-            {
-                strongSelf.navigationController.gradientScrollNavBar.scrollView = verticalCollectionView;
-                verticalCollectionView.superview.frame = cell.bounds;
-            }
-            else {
-                [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:YES];
-            }
-
-            *stop = YES;
-        }
-    }];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     // will change category
-    self.navigationController.gradientScrollNavBar.lock = YES;
-    [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:YES];
+    if ([scrollView isKindOfClass:[UICollectionView class]]) {
+        self.navigationController.gradientScrollNavBar.shuldScrollViewUpdate = NO;
+        [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:YES];
+    }
 }
 
 @end
