@@ -30,6 +30,10 @@
     self.collectionView.pagingEnabled = YES;
     // Do any additional setup after loading the view.
 
+    UINavigationController *nav = self.navigationController;
+    self.navigationItem.titleView = nav.navigationItem.titleView;
+    self.navigationItem.leftBarButtonItem = nav.navigationItem.leftBarButtonItem;
+    self.navigationItem.rightBarButtonItem = nav.navigationItem.rightBarButtonItem;
     self.navigationController.gradientScrollNavBar.scrollView = self.collectionView;
 }
 
@@ -108,11 +112,32 @@
         typeof (weakSelf) strongSelf = weakSelf;
         if (strongSelf && [[collectionView indexPathForCell:cell] row] == currentPage) {
             UICollectionView *verticalCollectionView = [strongSelf collectionViewFromCell:cell];
-            strongSelf.navigationController.gradientScrollNavBar.scrollView = verticalCollectionView;
-            verticalCollectionView.superview.frame = cell.bounds;
+
+            // immutable check
+            strongSelf.navigationController.gradientScrollNavBar.lock = NO;
+            if (strongSelf.navigationController.gradientScrollNavBar.scrollView != verticalCollectionView)
+            {
+                strongSelf.navigationController.gradientScrollNavBar.scrollView = verticalCollectionView;
+                verticalCollectionView.superview.frame = cell.bounds;
+            }
+            else {
+                [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:YES];
+            }
+
             *stop = YES;
         }
     }];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    NSLog(@"will change category");
+    self.navigationController.gradientScrollNavBar.lock = YES;
+    [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:YES];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
 }
 
 /*

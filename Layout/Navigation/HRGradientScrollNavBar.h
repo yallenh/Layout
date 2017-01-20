@@ -13,6 +13,8 @@
 @property (nonatomic) UIScrollView *scrollView;
 @property (nonatomic) CAGradientLayer *gradientLayer;
 
+@property (nonatomic) BOOL lock;
+
 - (void)resetToDefaultPositionWithAnimation:(BOOL)animated;
 
 @end
