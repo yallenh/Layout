@@ -79,13 +79,15 @@ static CGFloat const kInCallStatusBarHeightIncreasing = 20.f;
 - (void)resetToDefaultPositionWithAnimation:(BOOL)animated
 {
     self.scrollState = HRScrollNavigationBarStateNone;
+    [UIView beginAnimations:@"HRScrollNavigationBarAnimation" context:nil];
+
+    // reset nav bar
     CGRect frame = self.frame;
     frame.origin.y = [self statusBarTopOffset];
-
-    [UIView beginAnimations:@"HRScrollNavigationBarAnimation" context:nil];
     self.frame = frame;
+
+    // reset scroll view
     if (self.scrollView && !self.lock) {
-        NSLog(@"reset parent");
         CGRect parentViewFrame = self.scrollView.superview.frame;
         CGFloat offsetY = parentViewFrame.origin.y;
         parentViewFrame.origin.y -= offsetY;
@@ -135,7 +137,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     CGFloat deltaY = contentOffsetY - self.lastContentOffsetY;
     if (deltaY < 0) {
         self.scrollState = HRScrollNavigationBarStateScrollingDown;
-    } else if (deltaY > 0) {
+    }
+    else if (deltaY > 0) {
         self.scrollState = HRScrollNavigationBarStateScrollingUp;
     }
 
@@ -144,7 +147,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     CGFloat maxY = [self statusBarTopOffset];
     CGFloat minY = maxY - CGRectGetHeight(frame);
     CGFloat contentInsetTop = self.scrollView.contentInset.top;
-    bool isBouncePastTopEdge = contentOffsetY < -contentInsetTop;
+    BOOL isBouncePastTopEdge = contentOffsetY < -contentInsetTop;
     if (isBouncePastTopEdge && CGRectGetMinY(frame) == maxY) {
         self.lastContentOffsetY = contentOffsetY;
         return;
@@ -164,7 +167,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
             frame.origin.y = minY;
             alpha = kNearZero;
         }
-        NSLog(@"[handlePan][if] isScrolling:%@ gestureIsActive:%@", isScrolling ? @"Y" : @"N", gestureIsActive ? @"Y" : @"N");
         [self setFrame:frame alpha:alpha animated:YES];
     }
     else if (gestureIsActive) {
@@ -173,7 +175,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         frame.origin.y = MIN(maxY, MAX(frame.origin.y, minY));
         alpha = (frame.origin.y - (minY + maxY)) / (maxY - (minY + maxY));
         alpha = MAX(kNearZero, alpha);
-        NSLog(@"[else] %f %f", frame.origin.y, alpha);
         [self setFrame:frame alpha:alpha animated:NO];
     }
 
@@ -197,15 +198,14 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     if (self.frame.origin.y == frame.origin.y && self.alpha == alpha) {
         return;
     }
-    NSLog(@"setFrame: %f != %f, %f != %f", self.frame.origin.y, frame.origin.y, self.alpha, alpha);
 
     if (animated) {
         [UIView beginAnimations:@"HRScrollNavigationBarAnimation" context:nil];
     }
     CGFloat offsetY = CGRectGetMinY(frame) - CGRectGetMinY(self.frame);
     [self.subviews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-        bool isBackgroundView = (idx == 0);
-        bool isViewHidden = view.hidden || view.alpha == 0;
+        BOOL isBackgroundView = (idx == 0);
+        BOOL isViewHidden = view.hidden || view.alpha == 0;
         if (!isBackgroundView && !isViewHidden) {
             view.alpha = alpha;
         }
@@ -215,34 +215,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     self.alpha = alpha;
 
     if (self.scrollView && !self.lock) {
-        NSLog(@"update parent");
         CGRect parentViewFrame = self.scrollView.superview.frame;
         parentViewFrame.origin.y += offsetY;
         parentViewFrame.size.height -= offsetY;
-//        if (contentOffsetUpdate) {
-//            self.scrollView.contentOffset = CGPointMake(0, self.scrollView.contentOffset.y + offsetY);
-//        }
         self.scrollView.superview.frame = parentViewFrame;
-
-//        CGRect parentViewFrame = self.scrollView.superview.superview.superview.superview.superview.frame;
-//        parentViewFrame.origin.y += offsetY;
-//        parentViewFrame.size.height -= offsetY;
-//        if (contentOffsetUpdate) {
-//            self.scrollView.contentOffset = CGPointMake(0, self.scrollView.contentOffset.y + offsetY);
-//        }
-//        self.scrollView.superview.superview.superview.superview.superview.frame = parentViewFrame;
-//        NSLog(@"%@", self.scrollView.superview.superview.superview.superview.superview);
-
-        // self.scrollView: UICollectionView
-        // self.scrollView.superview: UICollectionViewControllerWrapperView
-        // self.scrollView.superview.superview: UIView
-        // self.scrollView.superview.superview.superview: UICollectionViewCell
-        // self.scrollView.superview.superview.superview.superview: UICollectionView
-        // self.scrollView.superview.superview.superview.superview.superview: UICollectionViewControllerWrapperView
-//        parentViewFrame = self.scrollView.superview.superview.superview.superview.superview.frame;
-//        parentViewFrame.origin.y += offsetY;
-//        parentViewFrame.size.height -= offsetY;
-//        self.scrollView.superview.superview.superview.superview.superview.frame = parentViewFrame;
     }
     if (animated) {
         [UIView commitAnimations];
