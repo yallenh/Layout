@@ -15,6 +15,10 @@
     UICollectionViewDelegateFlowLayout
 >
 
+@property (nonatomic) NSMutableArray *categoryWidthCache;
+@property (nonatomic) NSMutableArray *categoryCenterOffset;
+@property (nonatomic) UIFont *categoryFont;
+
 @end
 
 @implementation HRNavBarCategoryCollectionView
@@ -32,6 +36,10 @@
         self.delegate = self;
         self.dataSource = self;
         [self registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
+
+        self.categoryFont = [UIFont systemFontOfSize:24.f];
+        self.categoryWidthCache = [NSMutableArray array];
+        self.categoryCenterOffset = [NSMutableArray array];
     }
     return self;
 }
@@ -41,6 +49,25 @@
 - (void)setCategories:(NSArray *)categories
 {
     _categories = categories;
+    [self.categoryWidthCache removeAllObjects];
+    [self.categoryCenterOffset removeAllObjects];
+    __block CGFloat offsetXBase = 0;
+    __block CGFloat offsetX = 0;
+    __weak typeof (self) weakSelf = self;
+    NSDictionary *attributes = @{NSFontAttributeName:self.categoryFont};
+    [categories enumerateObjectsUsingBlock:^(NSString *category, NSUInteger idx, BOOL *stop) {
+        typeof (weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) {
+            return;
+        }
+        CGFloat width = floor([[[NSAttributedString alloc] initWithString:category attributes:attributes] size].width);
+        if (!idx) {
+            offsetXBase = width / 2;
+        }
+        offsetX += width;
+        [strongSelf.categoryWidthCache addObject:[NSNumber numberWithFloat:width]];
+        [strongSelf.categoryCenterOffset addObject:[NSNumber numberWithFloat:(offsetX - width / 2 - offsetXBase)]];
+    }];
     [self reloadData];
 }
 
@@ -56,16 +83,34 @@
     }
     else {
         label = [cell.subviews objectAtIndex:1];
-        /*
-        [cell.subviews enumerateObjectsUsingBlock:^(id view, NSUInteger idx, BOOL *stop) {
-            if ([view isKindOfClass:[UILabel class]]) {
-                label = (UILabel *)view;
-                *stop = YES;
-            }
-        }];
-        */
+//        [cell.subviews enumerateObjectsUsingBlock:^(id view, NSUInteger idx, BOOL *stop) {
+//            if ([view isKindOfClass:[UILabel class]]) {
+//                label = (UILabel *)view;
+//                *stop = YES;
+//            }
+//        }];
     }
     label.text = text;
+}
+
+- (void)setTranslationX:(CGFloat)translationX
+{
+    // translationX = ((contentOffset.x - width / 2.f) / width) + 1;
+    CGFloat x = ((translationX - 1.f) + .5f);
+    if (x < 0) {
+        return;
+    }
+
+    NSInteger lowerBoundIndex = (NSInteger)floor(x);
+    NSInteger upperBoundIndex = (NSInteger)ceil(x);
+    if (upperBoundIndex >= self.categoryCenterOffset.count) {
+        return;
+    }
+
+    CGFloat lowerBoundOffsetX =  [[self.categoryCenterOffset objectAtIndex:lowerBoundIndex] floatValue];
+    CGFloat upperBoundOffsetX =  [[self.categoryCenterOffset objectAtIndex:upperBoundIndex] floatValue];
+    CGFloat tx = (x - floor(x)) * (upperBoundOffsetX - lowerBoundOffsetX);
+    [self setContentOffset:CGPointMake(lowerBoundOffsetX + tx, 0)];
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -91,12 +136,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height = CGRectGetHeight(collectionView.frame);
-    NSString *category = [self.categories objectAtIndex:indexPath.row];
-    UIFont *font = [UIFont systemFontOfSize:floor(height * .8f)];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
-    CGFloat width = [[[NSAttributedString alloc] initWithString:category attributes:attributes] size].width;
-    return CGSizeMake(width, height);
+    return CGSizeMake([[self.categoryWidthCache objectAtIndex:indexPath.row] floatValue], CGRectGetHeight(collectionView.frame));
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section

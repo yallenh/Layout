@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, HRNavBarCategoryType) {
 @interface HRNavBarCategoryCollectionView : UICollectionView
 
 @property (nonatomic) NSArray *categories;
+@property (nonatomic) CGFloat translationX;
 
 - (instancetype)initWithFrame:(CGRect)frame;
 

@@ -8,7 +8,10 @@
 
 #import "HRSwiperViewController.h"
 #import "HRGradientScrollNavBar.h"
+#import "HRNavBarCategoryCollectionView.h"
 #import "HRVerticalViewController.h"
+
+
 
 @interface HRSwiperViewController ()
 @property (nonatomic) NSUInteger currentPage;
@@ -88,9 +91,9 @@
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    HRNavBarCategoryCollectionView *categoryView = (HRNavBarCategoryCollectionView *)self.navigationItem.titleView;
+    return categoryView.categories.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -136,21 +139,31 @@
 
 #pragma mark <UIScrollViewDelegate>
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    // reset nav bar scroll view
-    if ([scrollView isKindOfClass:[UICollectionView class]]) {
-        CGFloat width = CGRectGetWidth(scrollView.frame);
-        self.currentPage = ((scrollView.contentOffset.x - width / 2.f) / width) + 1;
-    }
-}
-
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     // will change category
     if ([scrollView isKindOfClass:[UICollectionView class]]) {
         self.navigationController.gradientScrollNavBar.shuldScrollViewUpdate = NO;
         [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:YES];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([scrollView isKindOfClass:[UICollectionView class]]) {
+        CGFloat width = CGRectGetWidth(scrollView.frame);
+        CGFloat translationX = ((scrollView.contentOffset.x - width / 2.f) / width) + 1;
+        HRNavBarCategoryCollectionView *categoryView = (HRNavBarCategoryCollectionView *)self.navigationItem.titleView;
+        categoryView.translationX = translationX;
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    // reset nav bar scroll view
+    if ([scrollView isKindOfClass:[UICollectionView class]]) {
+        CGFloat width = CGRectGetWidth(scrollView.frame);
+        self.currentPage = ((scrollView.contentOffset.x - width / 2.f) / width) + 1;
     }
 }
 
