@@ -21,6 +21,7 @@
 		91D6C8251E237A3500FEE048 /* UIButton+HRUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D6C8241E237A3500FEE048 /* UIButton+HRUtilities.m */; };
 		91D6C8561E24BC7200FEE048 /* HRSwiperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D6C8551E24BC7200FEE048 /* HRSwiperViewController.m */; };
 		91D6C8591E24D33E00FEE048 /* UINavigationController+Factory.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D6C8581E24D33E00FEE048 /* UINavigationController+Factory.m */; };
+		91E052391E32148F006B6554 /* HRNavBarCategoryCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E052381E32148F006B6554 /* HRNavBarCategoryCollectionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,8 @@
 		91D6C8551E24BC7200FEE048 /* HRSwiperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRSwiperViewController.m; path = CategorySwiper/HRSwiperViewController.m; sourceTree = "<group>"; };
 		91D6C8571E24D33E00FEE048 /* UINavigationController+Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+Factory.h"; path = "Navigation/UINavigationController+Factory.h"; sourceTree = "<group>"; };
 		91D6C8581E24D33E00FEE048 /* UINavigationController+Factory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+Factory.m"; path = "Navigation/UINavigationController+Factory.m"; sourceTree = "<group>"; };
+		91E052371E32148F006B6554 /* HRNavBarCategoryCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRNavBarCategoryCollectionView.h; path = Navigation/HRNavBarCategoryCollectionView.h; sourceTree = "<group>"; };
+		91E052381E32148F006B6554 /* HRNavBarCategoryCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRNavBarCategoryCollectionView.m; path = Navigation/HRNavBarCategoryCollectionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,8 @@
 			children = (
 				91257E961E235FB9002800F1 /* HRGradientScrollNavBar.h */,
 				91257E971E235FB9002800F1 /* HRGradientScrollNavBar.m */,
+				91E052371E32148F006B6554 /* HRNavBarCategoryCollectionView.h */,
+				91E052381E32148F006B6554 /* HRNavBarCategoryCollectionView.m */,
 				91D6C8571E24D33E00FEE048 /* UINavigationController+Factory.h */,
 				91D6C8581E24D33E00FEE048 /* UINavigationController+Factory.m */,
 			);
@@ -226,6 +231,7 @@
 				91257E981E235FB9002800F1 /* HRGradientScrollNavBar.m in Sources */,
 				91257E9B1E237072002800F1 /* HRGraphicsFactory.m in Sources */,
 				913BB1CF1E1E445300C3D4B3 /* HRStickyHeaderFlowLayout.m in Sources */,
+				91E052391E32148F006B6554 /* HRNavBarCategoryCollectionView.m in Sources */,
 				913BB1BA1E1E430800C3D4B3 /* AppDelegate.m in Sources */,
 				91D6C8591E24D33E00FEE048 /* UINavigationController+Factory.m in Sources */,
 				91D6C8251E237A3500FEE048 /* UIButton+HRUtilities.m in Sources */,
