@@ -72,28 +72,6 @@
     [self reloadData];
 }
 
-- (void)setText:(NSString *)text onCell:(UIView *)cell
-{
-    __block UILabel *label;
-    if (cell.subviews.count <= 1) {
-        label = [[UILabel alloc] initWithFrame:cell.bounds];
-        label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor lightGrayColor];
-        [cell addSubview:label];
-    }
-    else {
-        label = [cell.subviews objectAtIndex:1];
-//        [cell.subviews enumerateObjectsUsingBlock:^(id view, NSUInteger idx, BOOL *stop) {
-//            if ([view isKindOfClass:[UILabel class]]) {
-//                label = (UILabel *)view;
-//                *stop = YES;
-//            }
-//        }];
-    }
-    label.text = text;
-}
-
 - (void)setTranslationX:(CGFloat)translationX
 {
     // translationX = ((contentOffset.x - width / 2.f) / width) + 1;
@@ -101,17 +79,30 @@
     if (x < 0) {
         return;
     }
-
     NSInteger lowerBoundIndex = (NSInteger)floor(x);
     NSInteger upperBoundIndex = (NSInteger)ceil(x);
     if (upperBoundIndex >= self.categoryCenterOffset.count) {
         return;
     }
 
+    // update content offset
     CGFloat lowerBoundOffsetX =  [[self.categoryCenterOffset objectAtIndex:lowerBoundIndex] floatValue];
     CGFloat upperBoundOffsetX =  [[self.categoryCenterOffset objectAtIndex:upperBoundIndex] floatValue];
     CGFloat tx = (x - floor(x)) * (upperBoundOffsetX - lowerBoundOffsetX);
     [self setContentOffset:CGPointMake(lowerBoundOffsetX + tx, 0)];
+
+    // update highlight index
+    self.highlightedIndex = (x - lowerBoundIndex > .5f) ? upperBoundIndex : lowerBoundIndex;
+}
+
+- (void)setHighlightedIndex:(NSUInteger)highlightedIndex
+{
+    if (highlightedIndex == _highlightedIndex) {
+        return;
+    }
+    NSUInteger lowlightedIndex = _highlightedIndex;
+    _highlightedIndex = highlightedIndex;
+    [self reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:lowlightedIndex inSection:0], [NSIndexPath indexPathForRow:highlightedIndex inSection:0]]];
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -129,7 +120,20 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class]) forIndexPath:indexPath];
-    [self setText:[self.categories objectAtIndex:indexPath.row] onCell:cell];
+    UILabel *label;
+    if (cell.subviews.count <= 1) {
+        label = [[UILabel alloc] initWithFrame:cell.bounds];
+        label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = [UIColor lightGrayColor];
+        [cell addSubview:label];
+    }
+    else {
+        // assume no other views add to cell
+        label = [cell.subviews objectAtIndex:1];
+    }
+    label.text = [self.categories objectAtIndex:indexPath.row];
+    label.textColor = (indexPath.row == self.highlightedIndex) ? [UIColor whiteColor] : [UIColor lightGrayColor];
     return cell;
 }
 
@@ -157,6 +161,7 @@
     if (self.switchDelegate) {
         [self.switchDelegate navBarCategory:self didWantToSwitchToIndexPath:indexPath];
         [self setContentOffset:CGPointMake([[self.categoryCenterOffset objectAtIndex:indexPath.row] floatValue], 0) animated:YES];
+        self.highlightedIndex = indexPath.row;
     }
 }
 

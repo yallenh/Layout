@@ -20,6 +20,7 @@
 
 @property (nonatomic) NSArray *categories;
 @property (nonatomic) CGFloat translationX;
+@property (nonatomic) NSUInteger highlightedIndex;
 @property (nonatomic, weak) id<HRNavBarCategorySwitchDelegate> switchDelegate;
 
 @end

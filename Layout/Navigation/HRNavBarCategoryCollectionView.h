@@ -21,6 +21,7 @@ typedef NS_ENUM(NSUInteger, HRNavBarCategoryType) {
 
 @property (nonatomic) NSArray *categories;
 @property (nonatomic) CGFloat translationX;
+@property (nonatomic) NSUInteger highlightedIndex;
 @property (nonatomic, weak) id<HRNavBarCategorySwitchDelegate> switchDelegate;
 
 - (instancetype)initWithFrame:(CGRect)frame;
