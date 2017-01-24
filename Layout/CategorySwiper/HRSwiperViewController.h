@@ -13,6 +13,6 @@
 
 @property (nonatomic) NSArray <id<HRVerticalDataProtocol>> *dataSource;
 
-- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout dataSource:(NSArray <id<HRVerticalDataProtocol>> *)dataSource;
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout verticalClass:(Class)verticalClass dataSource:(NSArray <id<HRVerticalDataProtocol>> *)dataSource;
 
 @end

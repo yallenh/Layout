@@ -7,7 +7,6 @@
 //
 
 #import "HRVerticalViewController.h"
-#import "HRStickyHeaderFlowLayout.h"
 #import "HRGradientScrollNavBar.h"
 
 @implementation HRVerticalViewController
@@ -21,16 +20,12 @@
     [refreshControl setAutoresizingMask:(UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleLeftMargin)];
     [refreshControl addTarget:self action:@selector(startRefresh) forControlEvents:UIControlEventValueChanged];
     self.collectionView.refreshControl = refreshControl;
-//    HRStickyHeaderFlowLayout *layout = [[HRStickyHeaderFlowLayout alloc] init];
-//    layout.minimumLineSpacing = 0;
-//    layout.minimumInteritemSpacing = 0;
-//    layout.type = HRStickyHeaderFlowLayoutTypeShowOnBrowsMore;
-//    layout.stickySections = [NSIndexSet indexSetWithIndex:0];
 
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([UICollectionReusableView class])];
-
-    // self.navigationController.gradientScrollNavBar.scrollView = self.collectionView;
+#ifdef DEVELOP_HOME
+    self.navigationController.gradientScrollNavBar.scrollView = self.collectionView;
+#endif
 }
 
 - (void)setText:(NSString *)text onView:(UIView *)view
@@ -109,7 +104,9 @@
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
 {
-    // [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:NO];
+#ifdef DEVELOP_HOME
+    [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:NO];
+#endif
 }
 
 @end

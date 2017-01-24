@@ -8,11 +8,9 @@
 
 #import "HRSwiperViewController.h"
 #import "HRGradientScrollNavBar.h"
-#import "HRVerticalViewController.h"
 
 // protocol
 #import "HRNavBarCategoryProtocol.h"
-#import "HRVerticalDataProtocol.h"
 
 @interface HRSwiperViewController ()
 <
@@ -21,16 +19,18 @@
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic) id<HRNavBarCategoryProtocol> navBarCategory;
 @property (nonatomic) BOOL shouldUpdateCategory;
+@property (nonatomic) Class verticalClass;
 
 @end
 
 @implementation HRSwiperViewController
 
-- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout dataSource:(NSArray <id<HRVerticalDataProtocol>> *)dataSource
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout verticalClass:(Class)verticalClass dataSource:(NSArray <id<HRVerticalDataProtocol>> *)dataSource
 {
     if (self = [super initWithCollectionViewLayout:layout]) {
         _currentPage = NSUIntegerMax;
         _dataSource = dataSource;
+        _verticalClass = verticalClass;
     }
     return self;
 }
@@ -132,7 +132,7 @@
     // add vertical collection view once on every reused cell
     UIView *firstView = [cell.subviews firstObject];
     if (!firstView.subviews.count) {
-        HRVerticalViewController *verticalVC = [[HRVerticalViewController alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+        UICollectionViewController *verticalVC = [[self.verticalClass alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
         [self addChildViewController:verticalVC];
         [firstView addSubview:verticalVC.view];
         [verticalVC didMoveToParentViewController:self];

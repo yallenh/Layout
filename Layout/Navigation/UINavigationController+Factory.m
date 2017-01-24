@@ -8,6 +8,7 @@
 
 #import "UINavigationController+Factory.h"
 
+// views
 #import "HRNavBarCategoryCollectionView.h"
 
 // utils

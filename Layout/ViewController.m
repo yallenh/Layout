@@ -29,7 +29,7 @@
 #else
     UICollectionViewFlowLayout *swiperLayout = [[UICollectionViewFlowLayout alloc] init];
     swiperLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    HRSwiperViewController *viewController = [[HRSwiperViewController alloc] initWithCollectionViewLayout:swiperLayout dataSource:
+    HRSwiperViewController *viewController = [[HRSwiperViewController alloc] initWithCollectionViewLayout:swiperLayout verticalClass:[HRVerticalViewController class] dataSource:
     @[
       [[HRVerticalDataModel alloc] initWithDictionary:@{@"display_name":@"每日情報"}],
       [[HRVerticalDataModel alloc] initWithDictionary:@{@"display_name":@"焦點"}],
