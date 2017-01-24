@@ -42,8 +42,8 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
-    self.view.clipsToBounds = NO;
-    self.collectionView.clipsToBounds = NO;
+    // self.view.clipsToBounds = NO;
+    // self.collectionView.clipsToBounds = NO;
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([UICollectionReusableView class])];
     self.collectionView.pagingEnabled = YES;

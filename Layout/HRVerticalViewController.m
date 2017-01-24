@@ -9,6 +9,8 @@
 #import "HRVerticalViewController.h"
 #import "HRGradientScrollNavBar.h"
 
+#define DEVELOP_HOME
+
 @implementation HRVerticalViewController
 
 - (void)viewDidLoad
@@ -49,7 +51,8 @@
     });
 }
 
-#pragma mark - UICollectionViewDataSource
+#pragma mark <UICollectionViewDataSource>
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 5;
@@ -81,7 +84,8 @@
     return cell;
 }
 
-#pragma mark - UICollectionViewDelegateFlowLayout
+#pragma mark <UICollectionViewDelegateFlowLayout>
+
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
     return 0;
@@ -107,6 +111,13 @@
 #ifdef DEVELOP_HOME
     [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:NO];
 #endif
+}
+
+#pragma mark <UICollectionViewDelegate>
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"%@", indexPath);
 }
 
 @end
