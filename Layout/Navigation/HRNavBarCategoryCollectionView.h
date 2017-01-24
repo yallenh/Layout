@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HRNavBarCategoryProtocol.h"
 
 typedef NS_ENUM(NSUInteger, HRNavBarCategoryType) {
     HRNavBarCategoryTypeNews,
@@ -14,9 +15,13 @@ typedef NS_ENUM(NSUInteger, HRNavBarCategoryType) {
 };
 
 @interface HRNavBarCategoryCollectionView : UICollectionView
+<
+    HRNavBarCategoryProtocol
+>
 
 @property (nonatomic) NSArray *categories;
 @property (nonatomic) CGFloat translationX;
+@property (nonatomic, weak) id<HRNavBarCategorySwitchDelegate> switchDelegate;
 
 - (instancetype)initWithFrame:(CGRect)frame;
 

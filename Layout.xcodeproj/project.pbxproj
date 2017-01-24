@@ -53,6 +53,7 @@
 		91D6C8581E24D33E00FEE048 /* UINavigationController+Factory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+Factory.m"; path = "Navigation/UINavigationController+Factory.m"; sourceTree = "<group>"; };
 		91E052371E32148F006B6554 /* HRNavBarCategoryCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRNavBarCategoryCollectionView.h; path = Navigation/HRNavBarCategoryCollectionView.h; sourceTree = "<group>"; };
 		91E052381E32148F006B6554 /* HRNavBarCategoryCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRNavBarCategoryCollectionView.m; path = Navigation/HRNavBarCategoryCollectionView.m; sourceTree = "<group>"; };
+		91E0523A1E370493006B6554 /* HRNavBarCategoryProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HRNavBarCategoryProtocol.h; path = Navigation/HRNavBarCategoryProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +72,7 @@
 			children = (
 				91257E961E235FB9002800F1 /* HRGradientScrollNavBar.h */,
 				91257E971E235FB9002800F1 /* HRGradientScrollNavBar.m */,
+				91E0523A1E370493006B6554 /* HRNavBarCategoryProtocol.h */,
 				91E052371E32148F006B6554 /* HRNavBarCategoryCollectionView.h */,
 				91E052381E32148F006B6554 /* HRNavBarCategoryCollectionView.m */,
 				91D6C8571E24D33E00FEE048 /* UINavigationController+Factory.h */,

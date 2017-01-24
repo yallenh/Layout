@@ -8,13 +8,18 @@
 
 #import "HRSwiperViewController.h"
 #import "HRGradientScrollNavBar.h"
-#import "HRNavBarCategoryCollectionView.h"
 #import "HRVerticalViewController.h"
 
-
+// protocol
+#import "HRNavBarCategoryProtocol.h"
 
 @interface HRSwiperViewController ()
+<
+    HRNavBarCategorySwitchDelegate
+>
 @property (nonatomic) NSUInteger currentPage;
+@property (nonatomic) id<HRNavBarCategoryProtocol> navBarCategory;
+
 @end
 
 @implementation HRSwiperViewController
@@ -39,12 +44,18 @@
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([UICollectionReusableView class])];
     self.collectionView.pagingEnabled = YES;
-    // Do any additional setup after loading the view.
 
+    // update navigation
     UINavigationController *nav = self.navigationController;
     self.navigationItem.titleView = nav.navigationItem.titleView;
     self.navigationItem.leftBarButtonItem = nav.navigationItem.leftBarButtonItem;
     self.navigationItem.rightBarButtonItem = nav.navigationItem.rightBarButtonItem;
+
+    // set delegate
+    if ([self.navigationItem.titleView conformsToProtocol:@protocol(HRNavBarCategoryProtocol)]) {
+        self.navBarCategory = (id<HRNavBarCategoryProtocol>)self.navigationItem.titleView;
+        self.navBarCategory.switchDelegate = self;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -92,8 +103,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    HRNavBarCategoryCollectionView *categoryView = (HRNavBarCategoryCollectionView *)self.navigationItem.titleView;
-    return categoryView.categories.count;
+    return self.navBarCategory.categories.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -153,8 +163,7 @@
     if ([scrollView isKindOfClass:[UICollectionView class]]) {
         CGFloat width = CGRectGetWidth(scrollView.frame);
         CGFloat translationX = ((scrollView.contentOffset.x - width / 2.f) / width) + 1;
-        HRNavBarCategoryCollectionView *categoryView = (HRNavBarCategoryCollectionView *)self.navigationItem.titleView;
-        categoryView.translationX = translationX;
+        self.navBarCategory.translationX = translationX;
     }
 }
 
@@ -164,6 +173,15 @@
     if ([scrollView isKindOfClass:[UICollectionView class]]) {
         CGFloat width = CGRectGetWidth(scrollView.frame);
         self.currentPage = ((scrollView.contentOffset.x - width / 2.f) / width) + 1;
+    }
+}
+
+#pragma mark <HRNavBarCategorySwitchDelegate>
+
+- (void)navBarCategory:(id<HRNavBarCategoryProtocol>)navBarCategory didWantToSwitchToIndexPath:(NSIndexPath *)indexPath
+{
+    if (navBarCategory == self.navBarCategory) {
+        [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
     }
 }
 

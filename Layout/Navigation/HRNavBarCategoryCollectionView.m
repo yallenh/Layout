@@ -7,6 +7,7 @@
 //
 
 #import "HRNavBarCategoryCollectionView.h"
+#import "HRGradientScrollNavBar.h"
 
 @interface HRNavBarCategoryCollectionView ()
 <
@@ -147,6 +148,15 @@
     // handle center deviation
     CGFloat centerDeviation = (screenWidth - width) / 2 - CGRectGetMinX(collectionView.frame);
     return UIEdgeInsetsMake(0, (width - firstItemWidth) / 2 + centerDeviation, 0, 0);
+}
+
+#pragma mark <UICollectionViewDelegate>
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.switchDelegate) {
+        [self.switchDelegate navBarCategory:self didWantToSwitchToIndexPath:indexPath];
+    }
 }
 
 @end
