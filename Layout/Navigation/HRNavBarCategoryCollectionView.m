@@ -145,9 +145,9 @@
     CGFloat screenWidth = CGRectGetWidth([UIScreen mainScreen].bounds);
     CGFloat width = CGRectGetWidth(collectionView.frame);
     CGFloat firstItemWidth = [self collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]].width;
-    // handle center deviation
+    CGFloat lastItemWidth = [self collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:[NSIndexPath indexPathForRow:(self.categories.count - 1) inSection:section]].width;
     CGFloat centerDeviation = (screenWidth - width) / 2 - CGRectGetMinX(collectionView.frame);
-    return UIEdgeInsetsMake(0, (width - firstItemWidth) / 2 + centerDeviation, 0, 0);
+    return UIEdgeInsetsMake(0, (width - firstItemWidth) / 2 + centerDeviation, 0, (width - lastItemWidth) / 2 - centerDeviation);
 }
 
 #pragma mark <UICollectionViewDelegate>
@@ -156,6 +156,7 @@
 {
     if (self.switchDelegate) {
         [self.switchDelegate navBarCategory:self didWantToSwitchToIndexPath:indexPath];
+        [self setContentOffset:CGPointMake([[self.categoryCenterOffset objectAtIndex:indexPath.row] floatValue], 0) animated:YES];
     }
 }
 
