@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HRVerticalDataProtocol.h"
 
 @interface HRSwiperViewController : UICollectionViewController
+
+@property (nonatomic) NSArray <id<HRVerticalDataProtocol>> *dataSource;
+
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout dataSource:(NSArray <id<HRVerticalDataProtocol>> *)dataSource;
 
 @end

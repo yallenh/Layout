@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, HRNavBarCategoryType) {
     HRNavBarCategoryProtocol
 >
 
-@property (nonatomic) NSArray *categories;
+@property (nonatomic) NSArray <id<HRCategoryDataProtocol>> *categories;
 @property (nonatomic) CGFloat translationX;
 @property (nonatomic) NSUInteger highlightedIndex;
 @property (nonatomic, weak) id<HRNavBarCategorySwitchDelegate> switchDelegate;

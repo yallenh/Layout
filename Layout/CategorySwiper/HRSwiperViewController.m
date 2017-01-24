@@ -12,6 +12,7 @@
 
 // protocol
 #import "HRNavBarCategoryProtocol.h"
+#import "HRVerticalDataProtocol.h"
 
 @interface HRSwiperViewController ()
 <
@@ -25,10 +26,11 @@
 
 @implementation HRSwiperViewController
 
-- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout dataSource:(NSArray <id<HRVerticalDataProtocol>> *)dataSource
 {
     if (self = [super initWithCollectionViewLayout:layout]) {
         _currentPage = NSUIntegerMax;
+        _dataSource = dataSource;
     }
     return self;
 }
@@ -56,6 +58,7 @@
     if ([self.navigationItem.titleView conformsToProtocol:@protocol(HRNavBarCategoryProtocol)]) {
         self.navBarCategory = (id<HRNavBarCategoryProtocol>)self.navigationItem.titleView;
         self.navBarCategory.switchDelegate = self;
+        self.navBarCategory.categories = self.dataSource;
     }
 }
 
@@ -67,6 +70,13 @@
 }
 
 #pragma mark -- Private methods
+
+- (void)setDataSource:(NSArray<id<HRVerticalDataProtocol>> *)dataSource
+{
+    _dataSource = dataSource;
+    self.navBarCategory.categories = dataSource;
+    [self.collectionView reloadData];
+}
 
 - (UICollectionView *)collectionViewFromCell:(UICollectionViewCell *)cell
 {
@@ -114,7 +124,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.navBarCategory.categories.count;
+    return self.dataSource.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

@@ -47,7 +47,7 @@
 
 #pragma mark - Private Methods
 
-- (void)setCategories:(NSArray *)categories
+- (void)setCategories:(NSArray<id<HRCategoryDataProtocol>> *)categories
 {
     _categories = categories;
     [self.categoryWidthCache removeAllObjects];
@@ -56,12 +56,12 @@
     __block CGFloat offsetX = 0;
     __weak typeof (self) weakSelf = self;
     NSDictionary *attributes = @{NSFontAttributeName:self.categoryFont};
-    [categories enumerateObjectsUsingBlock:^(NSString *category, NSUInteger idx, BOOL *stop) {
+    [categories enumerateObjectsUsingBlock:^(id<HRCategoryDataProtocol> data, NSUInteger idx, BOOL *stop) {
         typeof (weakSelf) strongSelf = weakSelf;
         if (!strongSelf) {
             return;
         }
-        CGFloat width = floor([[[NSAttributedString alloc] initWithString:category attributes:attributes] size].width);
+        CGFloat width = floor([[[NSAttributedString alloc] initWithString:data.categoryDisplayName attributes:attributes] size].width);
         if (!idx) {
             offsetXBase = width / 2;
         }
@@ -132,7 +132,7 @@
         // assume no other views add to cell
         label = [cell.subviews objectAtIndex:1];
     }
-    label.text = [self.categories objectAtIndex:indexPath.row];
+    label.text = [self.categories objectAtIndex:indexPath.row].categoryDisplayName;
     label.textColor = (indexPath.row == self.highlightedIndex) ? [UIColor whiteColor] : [UIColor lightGrayColor];
     return cell;
 }

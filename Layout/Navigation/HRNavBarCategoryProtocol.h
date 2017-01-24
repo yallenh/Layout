@@ -6,7 +6,7 @@
 //  Copyright © 2017 Yahoo. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "HRCategoryDataProtocol.h"
 
 @protocol HRNavBarCategoryProtocol;
 
@@ -18,7 +18,7 @@
 
 @protocol HRNavBarCategoryProtocol <NSObject>
 
-@property (nonatomic) NSArray *categories;
+@property (nonatomic) NSArray <id<HRCategoryDataProtocol>> *categories;
 @property (nonatomic) CGFloat translationX;
 @property (nonatomic) NSUInteger highlightedIndex;
 @property (nonatomic, weak) id<HRNavBarCategorySwitchDelegate> switchDelegate;

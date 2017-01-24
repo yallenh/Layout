@@ -72,11 +72,7 @@ static CGFloat const kHeaderSearchFontSize = 18.f;
 {
     [HRGradientScrollNavBar appearance].gradientLayer = [UINavigationController horizontalGradientLayer];
     UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[HRGradientScrollNavBar class] toolbarClass:nil];
-
-    HRNavBarCategoryCollectionView *navBarCategoryView = [[HRNavBarCategoryCollectionView alloc] initWithFrame:CGRectMake(0, 0, navController.navigationBar.frame.size.width, kHeaderSearchTextFieldHeight)];
-    navBarCategoryView.categories = @[@"每日情報", @"焦點", @"娛樂", @"運動", @"政治", @"財經", @"社會", @"國際", @"科技", @"生活", @"健康", @"美食", @"旅遊", @"電影", @"時尚", @"汽機車", @"房地產"];
-    navController.navigationItem.titleView = navBarCategoryView;
-
+    navController.navigationItem.titleView = [[HRNavBarCategoryCollectionView alloc] initWithFrame:CGRectMake(0, 0, navController.navigationBar.frame.size.width, kHeaderSearchTextFieldHeight)];
     navController.navigationBar.translucent = NO;
     navController.navigationItem.leftBarButtonItem = [UINavigationController hamburgerBarButtonItem];
     navController.navigationItem.rightBarButtonItem = [UINavigationController searchBarButtonItem];
