@@ -19,7 +19,7 @@
 >
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic) id<HRNavBarCategoryProtocol> navBarCategory;
-@property (nonatomic) BOOL shouldUpdateCategoryTransition;
+@property (nonatomic) BOOL shouldUpdateCategory;
 
 @end
 
@@ -63,7 +63,7 @@
 {
     [super viewDidAppear:animated];
     [self updateCurrentPage];
-    self.shouldUpdateCategoryTransition = YES;
+    self.shouldUpdateCategory = YES;
 }
 
 #pragma mark -- Private methods
@@ -171,7 +171,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if ((scrollView == self.collectionView) && self.shouldUpdateCategoryTransition) {
+    if ((scrollView == self.collectionView) && self.shouldUpdateCategory) {
         CGFloat width = CGRectGetWidth(scrollView.frame);
         CGFloat translationX = ((scrollView.contentOffset.x - width / 2.f) / width) + 1;
         self.navBarCategory.translationX = translationX;
@@ -189,7 +189,7 @@
 {
     if (scrollView == self.collectionView) {
         [self updateCurrentPage];
-        self.shouldUpdateCategoryTransition = YES;
+        self.shouldUpdateCategory = YES;
     }
 }
 
@@ -198,7 +198,7 @@
 - (void)navBarCategory:(id<HRNavBarCategoryProtocol>)navBarCategory didWantToSwitchToIndexPath:(NSIndexPath *)indexPath
 {
     if (navBarCategory == self.navBarCategory) {
-        self.shouldUpdateCategoryTransition = NO;
+        self.shouldUpdateCategory = NO;
         [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
     }
 }
