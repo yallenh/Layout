@@ -26,6 +26,7 @@
 
 #ifdef DEVELOP_HOME
     HRVerticalViewController *viewController = [[HRVerticalViewController alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+    UINavigationController *navController = [UINavigationController homeTabNavigationController];
 #else
     UICollectionViewFlowLayout *swiperLayout = [[UICollectionViewFlowLayout alloc] init];
     swiperLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -44,8 +45,8 @@
       [[HRVerticalDataModel alloc] initWithDictionary:@{@"display_name":@"電影"}],
       [[HRVerticalDataModel alloc] initWithDictionary:@{@"display_name":@"汽機車"}]
     ]];
-#endif
     UINavigationController *navController = [UINavigationController newsTabNavigationController];
+#endif
     [navController setViewControllers:@[viewController] animated:NO];
     [self addChildViewController:navController];
     [self.view addSubview:navController.view];

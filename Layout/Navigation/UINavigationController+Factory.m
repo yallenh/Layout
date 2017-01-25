@@ -33,7 +33,7 @@ static CGFloat const kHeaderSearchFontSize = 18.f;
 {
     [HRGradientScrollNavBar appearance].gradientLayer = [UINavigationController horizontalGradientLayer];
     UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[HRGradientScrollNavBar class] toolbarClass:nil];
-    navController.navigationBar.translucent = NO;
+    // navController.navigationBar.translucent = NO;
     navController.navigationItem.leftBarButtonItem = [UINavigationController hamburgerBarButtonItem];
     navController.navigationItem.rightBarButtonItem = [UINavigationController msgBarButtonItem];
 
@@ -74,7 +74,7 @@ static CGFloat const kHeaderSearchFontSize = 18.f;
     [HRGradientScrollNavBar appearance].gradientLayer = [UINavigationController horizontalGradientLayer];
     UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[HRGradientScrollNavBar class] toolbarClass:nil];
     navController.navigationItem.titleView = [[HRNavBarCategoryCollectionView alloc] initWithFrame:CGRectMake(0, 0, navController.navigationBar.frame.size.width, kHeaderSearchTextFieldHeight)];
-    navController.navigationBar.translucent = NO;
+    // navController.navigationBar.translucent = NO;
     navController.navigationItem.leftBarButtonItem = [UINavigationController hamburgerBarButtonItem];
     navController.navigationItem.rightBarButtonItem = [UINavigationController searchBarButtonItem];
     return navController;
