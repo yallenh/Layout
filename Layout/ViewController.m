@@ -13,8 +13,7 @@
 
 #import "HRVerticalDataModel.h"
 
-
-#define DEVELOP_HOME
+// #define DEVELOP_HOME
 
 @implementation ViewController
 

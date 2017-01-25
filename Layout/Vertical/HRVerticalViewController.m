@@ -9,7 +9,7 @@
 #import "HRVerticalViewController.h"
 #import "HRGradientScrollNavBar.h"
 
-#define DEVELOP_HOME
+// #define DEVELOP_HOME
 
 @implementation HRVerticalViewController
 

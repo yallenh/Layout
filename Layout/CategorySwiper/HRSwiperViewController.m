@@ -42,11 +42,11 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
-    // self.view.clipsToBounds = NO;
-    // self.collectionView.clipsToBounds = NO;
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([UICollectionReusableView class])];
+    self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.pagingEnabled = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
 
     // update navigation
     UINavigationController *nav = self.navigationController;
@@ -133,6 +133,7 @@
     UIView *firstView = [cell.subviews firstObject];
     if (!firstView.subviews.count) {
         UICollectionViewController *verticalVC = [[self.verticalClass alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+        verticalVC.collectionView.contentInset = UIEdgeInsetsMake(CGRectGetMaxY(self.navigationController.gradientScrollNavBar.frame), 0, 0, 0);
         [self addChildViewController:verticalVC];
         [firstView addSubview:verticalVC.view];
         [verticalVC didMoveToParentViewController:self];
