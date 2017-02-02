@@ -214,6 +214,7 @@
 				TargetAttributes = {
 					913BB1B11E1E430800C3D4B3 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 4N284APFSC;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -384,10 +385,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4N284APFSC;
 				INFOPLIST_FILE = Layout/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.twNews.Layout;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Layout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -396,10 +398,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4N284APFSC;
 				INFOPLIST_FILE = Layout/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.twNews.Layout;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Layout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
