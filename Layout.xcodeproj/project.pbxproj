@@ -20,6 +20,8 @@
 		91D6C8251E237A3500FEE048 /* UIButton+HRUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D6C8241E237A3500FEE048 /* UIButton+HRUtilities.m */; };
 		91D6C8561E24BC7200FEE048 /* HRSwiperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D6C8551E24BC7200FEE048 /* HRSwiperViewController.m */; };
 		91D6C8591E24D33E00FEE048 /* UINavigationController+Factory.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D6C8581E24D33E00FEE048 /* UINavigationController+Factory.m */; };
+		91DFD1061E42D59800609EEB /* HRCollectionSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DFD1051E42D59800609EEB /* HRCollectionSectionController.m */; };
+		91DFD1091E42D5B900609EEB /* HRCollectionSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DFD1081E42D5B900609EEB /* HRCollectionSectionModel.m */; };
 		91E052391E32148F006B6554 /* HRNavBarCategoryCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E052381E32148F006B6554 /* HRNavBarCategoryCollectionView.m */; };
 		91E0523E1E374577006B6554 /* HRVerticalDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E0523D1E374577006B6554 /* HRVerticalDataModel.m */; };
 		91E052681E389B9F006B6554 /* HRVerticalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E052671E389B9F006B6554 /* HRVerticalViewController.m */; };
@@ -50,6 +52,11 @@
 		91D6C8551E24BC7200FEE048 /* HRSwiperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRSwiperViewController.m; path = CategorySwiper/HRSwiperViewController.m; sourceTree = "<group>"; };
 		91D6C8571E24D33E00FEE048 /* UINavigationController+Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+Factory.h"; path = "Navigation/UINavigationController+Factory.h"; sourceTree = "<group>"; };
 		91D6C8581E24D33E00FEE048 /* UINavigationController+Factory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+Factory.m"; path = "Navigation/UINavigationController+Factory.m"; sourceTree = "<group>"; };
+		91DFD1041E42D59800609EEB /* HRCollectionSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRCollectionSectionController.h; path = CollectionSection/HRCollectionSectionController.h; sourceTree = "<group>"; };
+		91DFD1051E42D59800609EEB /* HRCollectionSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRCollectionSectionController.m; path = CollectionSection/HRCollectionSectionController.m; sourceTree = "<group>"; };
+		91DFD1071E42D5B900609EEB /* HRCollectionSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRCollectionSectionModel.h; path = CollectionSection/HRCollectionSectionModel.h; sourceTree = "<group>"; };
+		91DFD1081E42D5B900609EEB /* HRCollectionSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRCollectionSectionModel.m; path = CollectionSection/HRCollectionSectionModel.m; sourceTree = "<group>"; };
+		91DFD10A1E42D69F00609EEB /* HRCollectionSectionModel_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HRCollectionSectionModel_private.h; path = CollectionSection/HRCollectionSectionModel_private.h; sourceTree = "<group>"; };
 		91E052371E32148F006B6554 /* HRNavBarCategoryCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRNavBarCategoryCollectionView.h; path = Navigation/HRNavBarCategoryCollectionView.h; sourceTree = "<group>"; };
 		91E052381E32148F006B6554 /* HRNavBarCategoryCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRNavBarCategoryCollectionView.m; path = Navigation/HRNavBarCategoryCollectionView.m; sourceTree = "<group>"; };
 		91E0523A1E370493006B6554 /* HRNavBarCategoryProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HRNavBarCategoryProtocol.h; path = Navigation/HRNavBarCategoryProtocol.h; sourceTree = "<group>"; };
@@ -122,6 +129,7 @@
 				913BB1B91E1E430800C3D4B3 /* AppDelegate.m */,
 				913BB1BB1E1E430800C3D4B3 /* ViewController.h */,
 				913BB1BC1E1E430800C3D4B3 /* ViewController.m */,
+				91DFD1031E42D53F00609EEB /* CollectionSection */,
 				91E0523B1E374515006B6554 /* DataModel */,
 				91D6C8501E24BB0F00FEE048 /* CategorySwiper */,
 				91E052651E389B6E006B6554 /* Vertical */,
@@ -161,6 +169,18 @@
 				91D6C8551E24BC7200FEE048 /* HRSwiperViewController.m */,
 			);
 			name = CategorySwiper;
+			sourceTree = "<group>";
+		};
+		91DFD1031E42D53F00609EEB /* CollectionSection */ = {
+			isa = PBXGroup;
+			children = (
+				91DFD1041E42D59800609EEB /* HRCollectionSectionController.h */,
+				91DFD1051E42D59800609EEB /* HRCollectionSectionController.m */,
+				91DFD1071E42D5B900609EEB /* HRCollectionSectionModel.h */,
+				91DFD1081E42D5B900609EEB /* HRCollectionSectionModel.m */,
+				91DFD10A1E42D69F00609EEB /* HRCollectionSectionModel_private.h */,
+			);
+			name = CollectionSection;
 			sourceTree = "<group>";
 		};
 		91E0523B1E374515006B6554 /* DataModel */ = {
@@ -267,7 +287,9 @@
 				91D6C8561E24BC7200FEE048 /* HRSwiperViewController.m in Sources */,
 				91E052681E389B9F006B6554 /* HRVerticalViewController.m in Sources */,
 				91257E8F1E235B6A002800F1 /* UIColor+Utils.m in Sources */,
+				91DFD1091E42D5B900609EEB /* HRCollectionSectionModel.m in Sources */,
 				913BB1B71E1E430800C3D4B3 /* main.m in Sources */,
+				91DFD1061E42D59800609EEB /* HRCollectionSectionController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
