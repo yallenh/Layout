@@ -22,6 +22,9 @@
 		91D6C8591E24D33E00FEE048 /* UINavigationController+Factory.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D6C8581E24D33E00FEE048 /* UINavigationController+Factory.m */; };
 		91DFD1061E42D59800609EEB /* HRCollectionSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DFD1051E42D59800609EEB /* HRCollectionSectionController.m */; };
 		91DFD1091E42D5B900609EEB /* HRCollectionSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DFD1081E42D5B900609EEB /* HRCollectionSectionModel.m */; };
+		91DFD10D1E430AAF00609EEB /* HRHorizontalSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DFD10C1E430AAF00609EEB /* HRHorizontalSection.m */; };
+		91DFD1131E43120100609EEB /* HRVerticalStreamSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DFD1121E43120100609EEB /* HRVerticalStreamSection.m */; };
+		91DFD1161E432A9B00609EEB /* HRCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DFD1151E432A9B00609EEB /* HRCollectionViewController.m */; };
 		91E052391E32148F006B6554 /* HRNavBarCategoryCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E052381E32148F006B6554 /* HRNavBarCategoryCollectionView.m */; };
 		91E0523E1E374577006B6554 /* HRVerticalDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E0523D1E374577006B6554 /* HRVerticalDataModel.m */; };
 		91E052681E389B9F006B6554 /* HRVerticalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E052671E389B9F006B6554 /* HRVerticalViewController.m */; };
@@ -57,6 +60,12 @@
 		91DFD1071E42D5B900609EEB /* HRCollectionSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRCollectionSectionModel.h; path = CollectionSection/HRCollectionSectionModel.h; sourceTree = "<group>"; };
 		91DFD1081E42D5B900609EEB /* HRCollectionSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRCollectionSectionModel.m; path = CollectionSection/HRCollectionSectionModel.m; sourceTree = "<group>"; };
 		91DFD10A1E42D69F00609EEB /* HRCollectionSectionModel_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HRCollectionSectionModel_private.h; path = CollectionSection/HRCollectionSectionModel_private.h; sourceTree = "<group>"; };
+		91DFD10B1E430AAF00609EEB /* HRHorizontalSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRHorizontalSection.h; path = CategorySwiper/HRHorizontalSection.h; sourceTree = "<group>"; };
+		91DFD10C1E430AAF00609EEB /* HRHorizontalSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRHorizontalSection.m; path = CategorySwiper/HRHorizontalSection.m; sourceTree = "<group>"; };
+		91DFD1111E43120100609EEB /* HRVerticalStreamSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRVerticalStreamSection.h; path = Vertical/HRVerticalStreamSection.h; sourceTree = "<group>"; };
+		91DFD1121E43120100609EEB /* HRVerticalStreamSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRVerticalStreamSection.m; path = Vertical/HRVerticalStreamSection.m; sourceTree = "<group>"; };
+		91DFD1141E432A9B00609EEB /* HRCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRCollectionViewController.h; path = CollectionSection/HRCollectionViewController.h; sourceTree = "<group>"; };
+		91DFD1151E432A9B00609EEB /* HRCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRCollectionViewController.m; path = CollectionSection/HRCollectionViewController.m; sourceTree = "<group>"; };
 		91E052371E32148F006B6554 /* HRNavBarCategoryCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRNavBarCategoryCollectionView.h; path = Navigation/HRNavBarCategoryCollectionView.h; sourceTree = "<group>"; };
 		91E052381E32148F006B6554 /* HRNavBarCategoryCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRNavBarCategoryCollectionView.m; path = Navigation/HRNavBarCategoryCollectionView.m; sourceTree = "<group>"; };
 		91E0523A1E370493006B6554 /* HRNavBarCategoryProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HRNavBarCategoryProtocol.h; path = Navigation/HRNavBarCategoryProtocol.h; sourceTree = "<group>"; };
@@ -165,6 +174,8 @@
 		91D6C8501E24BB0F00FEE048 /* CategorySwiper */ = {
 			isa = PBXGroup;
 			children = (
+				91DFD10B1E430AAF00609EEB /* HRHorizontalSection.h */,
+				91DFD10C1E430AAF00609EEB /* HRHorizontalSection.m */,
 				91D6C8541E24BC7200FEE048 /* HRSwiperViewController.h */,
 				91D6C8551E24BC7200FEE048 /* HRSwiperViewController.m */,
 			);
@@ -179,6 +190,8 @@
 				91DFD1071E42D5B900609EEB /* HRCollectionSectionModel.h */,
 				91DFD1081E42D5B900609EEB /* HRCollectionSectionModel.m */,
 				91DFD10A1E42D69F00609EEB /* HRCollectionSectionModel_private.h */,
+				91DFD1141E432A9B00609EEB /* HRCollectionViewController.h */,
+				91DFD1151E432A9B00609EEB /* HRCollectionViewController.m */,
 			);
 			name = CollectionSection;
 			sourceTree = "<group>";
@@ -197,6 +210,8 @@
 		91E052651E389B6E006B6554 /* Vertical */ = {
 			isa = PBXGroup;
 			children = (
+				91DFD1111E43120100609EEB /* HRVerticalStreamSection.h */,
+				91DFD1121E43120100609EEB /* HRVerticalStreamSection.m */,
 				91E052661E389B9F006B6554 /* HRVerticalViewController.h */,
 				91E052671E389B9F006B6554 /* HRVerticalViewController.m */,
 			);
@@ -284,7 +299,10 @@
 				913BB1BA1E1E430800C3D4B3 /* AppDelegate.m in Sources */,
 				91D6C8591E24D33E00FEE048 /* UINavigationController+Factory.m in Sources */,
 				91D6C8251E237A3500FEE048 /* UIButton+HRUtilities.m in Sources */,
+				91DFD10D1E430AAF00609EEB /* HRHorizontalSection.m in Sources */,
+				91DFD1131E43120100609EEB /* HRVerticalStreamSection.m in Sources */,
 				91D6C8561E24BC7200FEE048 /* HRSwiperViewController.m in Sources */,
+				91DFD1161E432A9B00609EEB /* HRCollectionViewController.m in Sources */,
 				91E052681E389B9F006B6554 /* HRVerticalViewController.m in Sources */,
 				91257E8F1E235B6A002800F1 /* UIColor+Utils.m in Sources */,
 				91DFD1091E42D5B900609EEB /* HRCollectionSectionModel.m in Sources */,

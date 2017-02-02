@@ -6,8 +6,8 @@
 //  Copyright © 2017 Yahoo. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HRCollectionViewController.h"
 
-@interface HRVerticalViewController : UICollectionViewController
+@interface HRVerticalViewController : HRCollectionViewController
 
 @end

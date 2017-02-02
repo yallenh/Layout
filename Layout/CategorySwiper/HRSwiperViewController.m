@@ -9,6 +9,8 @@
 #import "HRSwiperViewController.h"
 #import "HRGradientScrollNavBar.h"
 
+#import "HRHorizontalSection.h"
+
 // protocol
 #import "HRNavBarCategoryProtocol.h"
 
@@ -40,10 +42,12 @@
     
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
-    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([UICollectionReusableView class])];
+
+    HRHorizontalSection *section = [[HRHorizontalSection alloc] initWithDataSourceItems:self.dataSource];
+    [section setUp];
+    [self.collectionController insertCollectionSectionModel:section atIndex:0];
+    [self.collectionController registerCellReuseIdentifierOfCollectionSectionsInCollectionView:self.collectionView];
+
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.pagingEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -117,59 +121,13 @@
     }
 }
 
-#pragma mark <UICollectionViewDataSource>
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.dataSource.count;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class]) forIndexPath:indexPath];
-    // add vertical collection view once on every reused cell
-    UIView *firstView = [cell.subviews firstObject];
-    if (!firstView.subviews.count) {
-        UICollectionViewController *verticalVC = [[self.verticalClass alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
-        verticalVC.collectionView.contentInset = UIEdgeInsetsMake(CGRectGetMaxY(self.navigationController.gradientScrollNavBar.frame), 0, 0, 0);
-        [self addChildViewController:verticalVC];
-        [firstView addSubview:verticalVC.view];
-        [verticalVC didMoveToParentViewController:self];
-    }
-    // scroll vertical collection view to top
-    [((UICollectionView *)[[[firstView.subviews firstObject] subviews] firstObject]) scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
-    return cell;
-}
-
-#pragma mark <UICollectionViewDelegate>
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    // NSLog(@"will display %tu, cell = \n%@", indexPath.row, cell);
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return collectionView.frame.size;
-}
+#pragma mark <UIScrollViewDelegate>
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
 {
     [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:NO];
 }
-
-#pragma mark <UIScrollViewDelegate>
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {

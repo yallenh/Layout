@@ -9,7 +9,14 @@
 #import "HRVerticalViewController.h"
 #import "HRGradientScrollNavBar.h"
 
+#import "HRVerticalStreamSection.h"
+
+
 // #define DEVELOP_HOME
+
+@interface HRVerticalViewController ()
+
+@end
 
 @implementation HRVerticalViewController
 
@@ -23,27 +30,18 @@
     [refreshControl addTarget:self action:@selector(startRefresh) forControlEvents:UIControlEventValueChanged];
     self.collectionView.refreshControl = refreshControl;
 
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
-    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([UICollectionReusableView class])];
+    NSArray *mockStreamDataSource = @[@{}, @{}, @{}, @{}, @{}, @{}, @{}, @{}, @{}, @{}];
+    HRVerticalStreamSection *streamSection = [[HRVerticalStreamSection alloc] initWithDataSourceItems:mockStreamDataSource];
+    [streamSection setUp];
+    [self.collectionController insertCollectionSectionModel:streamSection atIndex:0];
+    [self.collectionController registerCellReuseIdentifierOfCollectionSectionsInCollectionView:self.collectionView];
+
 #ifdef DEVELOP_HOME
     self.navigationController.gradientScrollNavBar.scrollView = self.collectionView;
     UINavigationController *nav = self.navigationController;
     self.navigationItem.leftBarButtonItem = nav.navigationItem.leftBarButtonItem;
     self.navigationItem.rightBarButtonItem = nav.navigationItem.rightBarButtonItem;
 #endif
-}
-
-- (void)setText:(NSString *)text onView:(UIView *)view
-{
-    UILabel *label;
-    if (!view.subviews.count) {
-        label = [[UILabel alloc] initWithFrame:view.bounds];
-        [view addSubview:label];
-    } else {
-        label = [view.subviews firstObject];
-    }
-    label.text = text;
-    label.textAlignment = NSTextAlignmentCenter;
 }
 
 - (void)startRefresh
@@ -54,73 +52,11 @@
     });
 }
 
-#pragma mark <UICollectionViewDataSource>
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 5;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return 10;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class]) forIndexPath:indexPath];
-    [self setText:[NSString stringWithFormat:@"%tu - %tu", indexPath.section, indexPath.row] onView:[cell.subviews firstObject]];
-    cell.backgroundColor = [@[[UIColor redColor], [UIColor orangeColor], [UIColor yellowColor], [UIColor greenColor], [UIColor blueColor]] objectAtIndex:indexPath.row % 5];
-    return cell;
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionReusableView *cell;
-    if (kind == UICollectionElementKindSectionHeader) {
-        cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:NSStringFromClass([UICollectionReusableView class]) forIndexPath:indexPath];
-        [self setText:[NSString stringWithFormat:@"section %tu", indexPath.section] onView:cell];
-        cell.backgroundColor = [UIColor lightGrayColor];
-    } else {
-        cell = [[UICollectionReusableView alloc] init];
-    }
-    return cell;
-}
-
-#pragma mark <UICollectionViewDelegateFlowLayout>
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(CGRectGetWidth(self.view.frame), 200.f);
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-    return CGSizeMake(CGRectGetWidth(self.view.frame), 50.f);
-}
-
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
 {
 #ifdef DEVELOP_HOME
     [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:NO];
 #endif
-}
-
-#pragma mark <UICollectionViewDelegate>
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"%@", indexPath);
 }
 
 @end
