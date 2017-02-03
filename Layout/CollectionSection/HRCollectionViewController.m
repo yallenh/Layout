@@ -10,9 +10,40 @@
 
 @implementation HRCollectionViewController
 
-- (void)viewDidLoad
+- (instancetype)init
 {
-    [super viewDidLoad];
+    if (self = [super init]) {
+        [self setUpSectionController];
+    }
+    return self;
+}
+
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout
+{
+    if (self = [super initWithCollectionViewLayout:layout]) {
+        [self setUpSectionController];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder:aDecoder]) {
+        [self setUpSectionController];
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [self setUpSectionController];
+    }
+    return self;
+}
+
+- (void)setUpSectionController
+{
     self.collectionController = [[HRCollectionSectionController alloc] init];
     self.collectionController.delegate = self;
 }
