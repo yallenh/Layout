@@ -6,14 +6,8 @@
 //  Copyright © 2017 Yahoo. All rights reserved.
 //
 
-// #import <UIKit/UIKit.h>
-#import "HRVerticalDataProtocol.h"
 #import "HRCollectionViewController.h"
 
 @interface HRSwiperViewController : HRCollectionViewController
-
-@property (nonatomic) NSArray <id<HRVerticalDataProtocol>> *dataSource;
-
-- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout verticalClass:(Class)verticalClass dataSource:(NSArray <id<HRVerticalDataProtocol>> *)dataSource;
 
 @end

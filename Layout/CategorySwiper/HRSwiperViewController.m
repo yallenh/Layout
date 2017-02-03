@@ -9,10 +9,9 @@
 #import "HRSwiperViewController.h"
 #import "HRGradientScrollNavBar.h"
 
-#import "HRHorizontalSection.h"
-
 // protocol
 #import "HRNavBarCategoryProtocol.h"
+#import "HRCollectionSectionModel_private.h"
 
 @interface HRSwiperViewController ()
 <
@@ -21,48 +20,39 @@
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic) id<HRNavBarCategoryProtocol> navBarCategory;
 @property (nonatomic) BOOL shouldUpdateCategory;
-@property (nonatomic) Class verticalClass;
+@property (nonatomic) BOOL shouldHookScrollView;
 
 @end
 
 @implementation HRSwiperViewController
 
-- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout verticalClass:(Class)verticalClass dataSource:(NSArray <id<HRVerticalDataProtocol>> *)dataSource
-{
-    if (self = [super initWithCollectionViewLayout:layout]) {
-        _currentPage = NSUIntegerMax;
-        _dataSource = dataSource;
-        _verticalClass = verticalClass;
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _currentPage = NSUIntegerMax;
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
-
-    HRHorizontalSection *section = [[HRHorizontalSection alloc] initWithDataSourceItems:self.dataSource];
-    [section setUp];
-    [self.collectionController insertCollectionSectionModel:section atIndex:0];
-    [self.collectionController registerCellReuseIdentifierOfCollectionSectionsInCollectionView:self.collectionView];
-
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.pagingEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
+}
 
-    // update navigation
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     UINavigationController *nav = self.navigationController;
-    self.navigationItem.titleView = nav.navigationItem.titleView;
-    self.navigationItem.leftBarButtonItem = nav.navigationItem.leftBarButtonItem;
-    self.navigationItem.rightBarButtonItem = nav.navigationItem.rightBarButtonItem;
-
-    // set delegate
-    if ([self.navigationItem.titleView conformsToProtocol:@protocol(HRNavBarCategoryProtocol)]) {
-        self.navBarCategory = (id<HRNavBarCategoryProtocol>)self.navigationItem.titleView;
-        self.navBarCategory.switchDelegate = self;
-        self.navBarCategory.categories = self.dataSource;
+    if (nav.viewControllers.count == 1) {
+        self.navigationItem.leftBarButtonItem = nav.navigationItem.leftBarButtonItem;
+        self.navigationItem.rightBarButtonItem = nav.navigationItem.rightBarButtonItem;
+        self.navigationItem.titleView = nav.navigationItem.titleView;
+        if ([self.navigationItem.titleView conformsToProtocol:@protocol(HRNavBarCategoryProtocol)]) {
+            self.navBarCategory = (id<HRNavBarCategoryProtocol>)self.navigationItem.titleView;
+            self.navBarCategory.switchDelegate = self;
+            self.navBarCategory.categories = [[self.collectionController collectionSectionModelAtIndex:0] dataSourceItems];
+        }
+        self.shouldHookScrollView = YES;
+    }
+    else {
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     }
 }
 
@@ -75,39 +65,38 @@
 
 #pragma mark -- Private methods
 
-- (void)setDataSource:(NSArray<id<HRVerticalDataProtocol>> *)dataSource
-{
-    _dataSource = dataSource;
-    self.navBarCategory.categories = dataSource;
-    [self.collectionView reloadData];
-}
-
 - (UICollectionView *)collectionViewFromCell:(UICollectionViewCell *)cell
 {
     return (UICollectionView *)[[[[[cell.subviews firstObject] subviews] firstObject] subviews] firstObject];
 }
 
+- (void)hookScrollViewWithNavigationBar
+{
+    self.shouldHookScrollView = NO;
+    __weak typeof (self) weakSelf = self;
+    [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell *cell, NSUInteger idx, BOOL *stop) {
+        typeof (weakSelf) strongSelf = weakSelf;
+        if (strongSelf && [[strongSelf.collectionView indexPathForCell:cell] row] == strongSelf.currentPage) {
+            UICollectionView *verticalCollectionView = [strongSelf collectionViewFromCell:cell];
+            // ASSERT
+            // strongSelf.navigationController.gradientScrollNavBar.scrollView != verticalCollectionView
+            strongSelf.navigationController.gradientScrollNavBar.scrollView = verticalCollectionView;
+            verticalCollectionView.superview.frame = cell.bounds;
+            *stop = YES;
+        }
+    }];
+}
+
 - (void)setCurrentPage:(NSUInteger)currentPage
 {
     self.navigationController.gradientScrollNavBar.shuldScrollViewUpdate = YES;
-    if (_currentPage == currentPage) {
+    if (_currentPage == currentPage && !self.shouldHookScrollView) {
         [self.navigationController.gradientScrollNavBar resetToDefaultPositionWithAnimation:YES];
     }
     else {
-        __weak typeof (self) weakSelf = self;
-        [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(UICollectionViewCell *cell, NSUInteger idx, BOOL *stop) {
-            typeof (weakSelf) strongSelf = weakSelf;
-            if (strongSelf && [[strongSelf.collectionView indexPathForCell:cell] row] == currentPage) {
-                UICollectionView *verticalCollectionView = [strongSelf collectionViewFromCell:cell];
-                // ASSERT
-                // strongSelf.navigationController.gradientScrollNavBar.scrollView != verticalCollectionView
-                strongSelf.navigationController.gradientScrollNavBar.scrollView = verticalCollectionView;
-                verticalCollectionView.superview.frame = cell.bounds;
-                *stop = YES;
-            }
-        }];
+        _currentPage = currentPage;
+        [self hookScrollViewWithNavigationBar];
     }
-    _currentPage = currentPage;
 }
 
 - (void)updateCurrentPage

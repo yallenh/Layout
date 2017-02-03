@@ -10,8 +10,6 @@
 
 @interface HRHorizontalSection : HRCollectionSectionModel
 
-@property (nonatomic) Class verticalViewControllerClass;
-
-- (void)setUp;
+- (instancetype)initWithDataSourceItems:(NSArray *)dataSourceItems verticalSections:(NSArray *)verticalSections;
 
 @end

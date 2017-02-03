@@ -25,6 +25,7 @@
 		91DFD10D1E430AAF00609EEB /* HRHorizontalSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DFD10C1E430AAF00609EEB /* HRHorizontalSection.m */; };
 		91DFD1131E43120100609EEB /* HRVerticalStreamSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DFD1121E43120100609EEB /* HRVerticalStreamSection.m */; };
 		91DFD1161E432A9B00609EEB /* HRCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DFD1151E432A9B00609EEB /* HRCollectionViewController.m */; };
+		91DFD1191E4467B700609EEB /* HRVerticalArticleSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DFD1181E4467B700609EEB /* HRVerticalArticleSection.m */; };
 		91E052391E32148F006B6554 /* HRNavBarCategoryCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E052381E32148F006B6554 /* HRNavBarCategoryCollectionView.m */; };
 		91E0523E1E374577006B6554 /* HRVerticalDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E0523D1E374577006B6554 /* HRVerticalDataModel.m */; };
 		91E052681E389B9F006B6554 /* HRVerticalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E052671E389B9F006B6554 /* HRVerticalViewController.m */; };
@@ -66,6 +67,8 @@
 		91DFD1121E43120100609EEB /* HRVerticalStreamSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRVerticalStreamSection.m; path = Vertical/HRVerticalStreamSection.m; sourceTree = "<group>"; };
 		91DFD1141E432A9B00609EEB /* HRCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRCollectionViewController.h; path = CollectionSection/HRCollectionViewController.h; sourceTree = "<group>"; };
 		91DFD1151E432A9B00609EEB /* HRCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRCollectionViewController.m; path = CollectionSection/HRCollectionViewController.m; sourceTree = "<group>"; };
+		91DFD1171E4467B700609EEB /* HRVerticalArticleSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRVerticalArticleSection.h; path = Vertical/HRVerticalArticleSection.h; sourceTree = "<group>"; };
+		91DFD1181E4467B700609EEB /* HRVerticalArticleSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRVerticalArticleSection.m; path = Vertical/HRVerticalArticleSection.m; sourceTree = "<group>"; };
 		91E052371E32148F006B6554 /* HRNavBarCategoryCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRNavBarCategoryCollectionView.h; path = Navigation/HRNavBarCategoryCollectionView.h; sourceTree = "<group>"; };
 		91E052381E32148F006B6554 /* HRNavBarCategoryCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRNavBarCategoryCollectionView.m; path = Navigation/HRNavBarCategoryCollectionView.m; sourceTree = "<group>"; };
 		91E0523A1E370493006B6554 /* HRNavBarCategoryProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HRNavBarCategoryProtocol.h; path = Navigation/HRNavBarCategoryProtocol.h; sourceTree = "<group>"; };
@@ -212,6 +215,8 @@
 			children = (
 				91DFD1111E43120100609EEB /* HRVerticalStreamSection.h */,
 				91DFD1121E43120100609EEB /* HRVerticalStreamSection.m */,
+				91DFD1171E4467B700609EEB /* HRVerticalArticleSection.h */,
+				91DFD1181E4467B700609EEB /* HRVerticalArticleSection.m */,
 				91E052661E389B9F006B6554 /* HRVerticalViewController.h */,
 				91E052671E389B9F006B6554 /* HRVerticalViewController.m */,
 			);
@@ -290,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91DFD1191E4467B700609EEB /* HRVerticalArticleSection.m in Sources */,
 				913BB1BD1E1E430800C3D4B3 /* ViewController.m in Sources */,
 				91E0523E1E374577006B6554 /* HRVerticalDataModel.m in Sources */,
 				91257E981E235FB9002800F1 /* HRGradientScrollNavBar.m in Sources */,

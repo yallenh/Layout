@@ -7,8 +7,33 @@
 //
 
 #import "HRVerticalStreamSection.h"
+#import "HRSwiperViewController.h"
+#import "HRVerticalArticleSection.h"
+#import "HRHorizontalSection.h"
+
+@interface HRVerticalStreamSection ()
+
+@property (nonatomic) HRSwiperViewController *horizontalViewController;
+
+@end
 
 @implementation HRVerticalStreamSection
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        [self setUp];
+    }
+    return self;
+}
+
+- (instancetype)initWithDataSourceItems:(NSArray *)dataSourceItems
+{
+    if (self = [super initWithDataSourceItems:dataSourceItems]) {
+        [self setUp];
+    }
+    return  self;
+}
 
 - (void)setUp
 {
@@ -50,6 +75,22 @@
     };
     self.sectionDidSelectItemAtIndexPathBlock = ^(UICollectionView *collectionView, NSIndexPath *indexPath, id dataSourceItemAtIndexPath) {
         NSLog(@"%@", indexPath);
+        typeof (weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) {
+            return;
+        }
+        UICollectionViewFlowLayout *swiperLayout = [[UICollectionViewFlowLayout alloc] init];
+        swiperLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        HRSwiperViewController *horizontalViewController = [[HRSwiperViewController alloc] initWithCollectionViewLayout:swiperLayout];
+        HRVerticalArticleSection *articleSection = [[HRVerticalArticleSection alloc] initWithDataSourceItems:@[@{}]];
+        HRHorizontalSection *section = [[HRHorizontalSection alloc] initWithDataSourceItems:@[@{},@{}] verticalSections:@[articleSection]];
+        [horizontalViewController.collectionController insertCollectionSectionModel:section atIndex:0];
+        [horizontalViewController.collectionController registerCellReuseIdentifierOfCollectionSectionsInCollectionView:horizontalViewController.collectionView];
+        strongSelf.horizontalViewController = horizontalViewController;
+        // push into viewport
+        if ([collectionView.delegate isKindOfClass:[UICollectionViewController class]]) {
+            [((UICollectionViewController *)collectionView.delegate).navigationController pushViewController:strongSelf.horizontalViewController animated:YES];
+        }
     };
 }
 

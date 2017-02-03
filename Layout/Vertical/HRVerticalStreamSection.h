@@ -10,6 +10,4 @@
 
 @interface HRVerticalStreamSection : HRCollectionSectionModel
 
-- (void)setUp;
-
 @end

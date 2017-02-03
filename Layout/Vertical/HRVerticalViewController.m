@@ -6,13 +6,12 @@
 //  Copyright © 2017 Yahoo. All rights reserved.
 //
 
-#import "HRVerticalViewController.h"
-#import "HRGradientScrollNavBar.h"
-
-#import "HRVerticalStreamSection.h"
-
-
 // #define DEVELOP_HOME
+
+#import "HRVerticalViewController.h"
+#ifdef DEVELOP_HOME
+#import "HRGradientScrollNavBar.h"
+#endif
 
 @interface HRVerticalViewController ()
 
@@ -29,12 +28,6 @@
     [refreshControl setAutoresizingMask:(UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleLeftMargin)];
     [refreshControl addTarget:self action:@selector(startRefresh) forControlEvents:UIControlEventValueChanged];
     self.collectionView.refreshControl = refreshControl;
-
-    NSArray *mockStreamDataSource = @[@{}, @{}, @{}, @{}, @{}, @{}, @{}, @{}, @{}, @{}];
-    HRVerticalStreamSection *streamSection = [[HRVerticalStreamSection alloc] initWithDataSourceItems:mockStreamDataSource];
-    [streamSection setUp];
-    [self.collectionController insertCollectionSectionModel:streamSection atIndex:0];
-    [self.collectionController registerCellReuseIdentifierOfCollectionSectionsInCollectionView:self.collectionView];
 
 #ifdef DEVELOP_HOME
     self.navigationController.gradientScrollNavBar.scrollView = self.collectionView;
