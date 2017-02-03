@@ -132,7 +132,9 @@
         // assume no other views add to cell
         label = [cell.subviews objectAtIndex:1];
     }
-    label.text = [self.categories objectAtIndex:indexPath.row].categoryDisplayName;
+    if (indexPath.row <= self.categories.count) {
+        label.text = [self.categories objectAtIndex:indexPath.row].categoryDisplayName;
+    }
     label.textColor = (indexPath.row == self.highlightedIndex) ? [UIColor whiteColor] : [UIColor lightGrayColor];
     return cell;
 }
@@ -141,6 +143,9 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row >= self.categoryWidthCache.count) {
+        return CGSizeZero;
+    }
     return CGSizeMake([[self.categoryWidthCache objectAtIndex:indexPath.row] floatValue], CGRectGetHeight(collectionView.frame));
 }
 
@@ -160,7 +165,9 @@
 {
     if (self.switchDelegate) {
         [self.switchDelegate navBarCategory:self didWantToSwitchToIndexPath:indexPath];
-        [self setContentOffset:CGPointMake([[self.categoryCenterOffset objectAtIndex:indexPath.row] floatValue], 0) animated:YES];
+        if (indexPath.row < self.categoryCenterOffset.count) {
+            [self setContentOffset:CGPointMake([[self.categoryCenterOffset objectAtIndex:indexPath.row] floatValue], 0) animated:YES];
+        }
         self.highlightedIndex = indexPath.row;
     }
 }
