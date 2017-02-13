@@ -24,10 +24,11 @@
     [super viewDidLoad];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    refreshControl.tintColor = [UIColor whiteColor];
+    refreshControl.tintColor = [UIColor grayColor];
     [refreshControl setAutoresizingMask:(UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleLeftMargin)];
     [refreshControl addTarget:self action:@selector(startRefresh) forControlEvents:UIControlEventValueChanged];
     self.collectionView.refreshControl = refreshControl;
+    self.collectionView.backgroundColor = [UIColor whiteColor];
 
 #ifdef DEVELOP_HOME
     self.navigationController.gradientScrollNavBar.scrollView = self.collectionView;

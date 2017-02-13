@@ -31,6 +31,7 @@
     _currentPage = NSUIntegerMax;
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
+    self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.pagingEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
