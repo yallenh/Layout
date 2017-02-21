@@ -26,8 +26,21 @@
     HRStickyHeaderFlowLayout *layout = [[HRStickyHeaderFlowLayout alloc] init];
     layout.minimumLineSpacing = 0;
     layout.minimumInteritemSpacing = 0;
+
+    // ShowOnBrowseMore
     layout.type = HRStickyHeaderFlowLayoutTypeShowOnBrowsMore;
-    layout.stickySections = [NSIndexSet indexSetWithIndex:0];
+
+    /*
+    // Stack
+    layout.type = HRStickyHeaderFlowLayoutTypeStack;
+    layout.stickySections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 2)];
+    */
+
+    ///*
+    // Replace
+    layout.type = HRStickyHeaderFlowLayoutTypeReplace;
+    layout.stickySections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 2)];
+    //*/
 
     _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
