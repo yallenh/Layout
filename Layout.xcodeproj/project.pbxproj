@@ -17,6 +17,7 @@
 		913BB1C21E1E430800C3D4B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 913BB1C11E1E430800C3D4B3 /* Assets.xcassets */; };
 		913BB1C51E1E430800C3D4B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 913BB1C31E1E430800C3D4B3 /* LaunchScreen.storyboard */; };
 		913BB1CF1E1E445300C3D4B3 /* HRStickyHeaderFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 913BB1CE1E1E445300C3D4B3 /* HRStickyHeaderFlowLayout.m */; };
+		919DFB3F1EA5C2F4006566F0 /* NSString+HRSSSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 919DFB3E1EA5C2F4006566F0 /* NSString+HRSSSize.m */; };
 		91D6C8251E237A3500FEE048 /* UIButton+HRUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D6C8241E237A3500FEE048 /* UIButton+HRUtilities.m */; };
 		91D6C8561E24BC7200FEE048 /* HRSwiperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D6C8551E24BC7200FEE048 /* HRSwiperViewController.m */; };
 		91D6C8591E24D33E00FEE048 /* UINavigationController+Factory.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D6C8581E24D33E00FEE048 /* UINavigationController+Factory.m */; };
@@ -50,6 +51,8 @@
 		913BB1C61E1E430800C3D4B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		913BB1CD1E1E445300C3D4B3 /* HRStickyHeaderFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRStickyHeaderFlowLayout.h; path = StickyHeader/HRStickyHeaderFlowLayout.h; sourceTree = "<group>"; };
 		913BB1CE1E1E445300C3D4B3 /* HRStickyHeaderFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRStickyHeaderFlowLayout.m; path = StickyHeader/HRStickyHeaderFlowLayout.m; sourceTree = "<group>"; };
+		919DFB3D1EA5C2F4006566F0 /* NSString+HRSSSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HRSSSize.h"; path = "Utils/NSString+HRSSSize.h"; sourceTree = "<group>"; };
+		919DFB3E1EA5C2F4006566F0 /* NSString+HRSSSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HRSSSize.m"; path = "Utils/NSString+HRSSSize.m"; sourceTree = "<group>"; };
 		91D6C8231E237A3500FEE048 /* UIButton+HRUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+HRUtilities.h"; path = "Utils/UIButton+HRUtilities.h"; sourceTree = "<group>"; };
 		91D6C8241E237A3500FEE048 /* UIButton+HRUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+HRUtilities.m"; path = "Utils/UIButton+HRUtilities.m"; sourceTree = "<group>"; };
 		91D6C8541E24BC7200FEE048 /* HRSwiperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRSwiperViewController.h; path = CategorySwiper/HRSwiperViewController.h; sourceTree = "<group>"; };
@@ -108,6 +111,8 @@
 		91257E8C1E235B1C002800F1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				919DFB3D1EA5C2F4006566F0 /* NSString+HRSSSize.h */,
+				919DFB3E1EA5C2F4006566F0 /* NSString+HRSSSize.m */,
 				91257E8D1E235B6A002800F1 /* UIColor+Utils.h */,
 				91257E8E1E235B6A002800F1 /* UIColor+Utils.m */,
 				91257E991E237072002800F1 /* HRGraphicsFactory.h */,
@@ -295,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				919DFB3F1EA5C2F4006566F0 /* NSString+HRSSSize.m in Sources */,
 				91DFD1191E4467B700609EEB /* HRVerticalArticleSection.m in Sources */,
 				913BB1BD1E1E430800C3D4B3 /* ViewController.m in Sources */,
 				91E0523E1E374577006B6554 /* HRVerticalDataModel.m in Sources */,
